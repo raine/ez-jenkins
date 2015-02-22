@@ -1,6 +1,6 @@
 require 'ramda' .installTo global
 require! {
-  './job-build-log'
+  './api/job-build-log'
   bluebird: Promise
 }
 
