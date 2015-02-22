@@ -1,7 +1,7 @@
 .PHONY: test
 
 SRC = $(shell find src -name "*.ls" -type f | sort)
-LIB = $(SRC:src/%.ls=lib/%.js)
+LIB = $(patsubst src/%.ls, lib/%.js, $(SRC))
 
 MOCHA = ./node_modules/.bin/mocha
 LSC = node_modules/.bin/lsc
@@ -12,7 +12,7 @@ lib:
 	mkdir -p lib/
 
 lib/%.js: src/%.ls lib
-	$(LSC) --compile --output lib "$<"
+	$(LSC) --compile --output "$(@D)" "$<"
 
 all: compile
 
