@@ -11,7 +11,7 @@ debug = require '../debug' <| __filename
 async = Promise.coroutine
 
 module.exports = async (job-name) ->*
-  debug 'job-build-log job-name=%s', job-name
+  debug 'tail job-name=%s', job-name
 
   build = yield last-build job-name
   last-build-number = build.number
