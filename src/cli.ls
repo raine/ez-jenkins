@@ -27,10 +27,12 @@ case \tail
     console.log 'Usage: jenkins tail [job-name]'
     process.exit!
 
+  # TODO: put into tail function that takes job and follow opt
+  #       so that this file remains short
   do async ->*
     rs = yield tail job-name
     rs.pipe process.stdout
-    rs.on 'end', ->
+    rs.on \end ->
       console.log 'done'
       process.exit!
 
