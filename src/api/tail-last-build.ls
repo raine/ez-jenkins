@@ -10,14 +10,11 @@ request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 async = Promise.coroutine
 
-module.exports = async (job-name) ->*
-  debug 'tail job-name=%s', job-name
-
-  build = yield last-build job-name
-  last-build-number = build.number
+tail-build = (job-name, build-number) ->
+  debug 'tail-build job-name=%s build-number=%d', job-name, build-number
   reading = false
   start = 0
-  url = format-url "/job/#job-name/#last-build-number/logText/progressiveText"
+  url = format-url "/job/#job-name/#build-number/logText/progressiveText"
 
   get-next-chunk = async (start) ->*
     debug 'get-next-chunk start=%d', start
@@ -34,19 +31,31 @@ module.exports = async (job-name) ->*
     start     := next-start
 
     if got-data
-      stop = rs.push body, 'utf8'
+      stop = not log-stream.push body, 'utf8'
+      debug 'stop=%s', stop
 
-    unless more-data 
+    unless more-data
       debug 'no more data'
-      rs.push null
-    else if stop is not false
+      return log-stream.push null
+
+    if stop is not true
       set-timeout (-> get-next-chunk next-start), 1000
 
-  rs = new Readable!
-  rs._read = !->
-    debug '_read'
+  log-stream = new Readable!
+  log-stream._read = !->
+    debug '_read reading=%s', reading
     unless reading
       reading := true
       get-next-chunk start
 
-  return rs
+  log-stream
+
+module.exports = async (job-name) ->*
+  debug 'tail-last-build job-name=%s', job-name
+
+  build = yield last-build job-name
+  stream = tail-build job-name, build.number
+  stream.on \end ->
+    console.log 'completed'
+
+  return merge build, { stream }

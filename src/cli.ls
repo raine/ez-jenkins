@@ -1,6 +1,6 @@
 require! {
   yargs
-  './api/tail'
+  './api/tail-last-build'
   bluebird: Promise
 }
 
@@ -10,7 +10,6 @@ async = Promise.coroutine
 argv = require 'yargs'
   .usage 'Usage: $0 <command> [options]'
   .command 'tail', 'read build logs'
-  .command 'list', 'list builds'
   .option 'f', 
     type        : \boolean
     description : "follow a job's build logs"
@@ -27,14 +26,16 @@ case \tail
     console.log 'Usage: jenkins tail [job-name]'
     process.exit!
 
-  # TODO: put into tail function that takes job and follow opt
-  #       so that this file remains short
-  do async ->*
-    rs = yield tail job-name
-    rs.pipe process.stdout
-    rs.on \end ->
-      console.log 'done'
-      process.exit!
+  # TODO: build number
+  # TODO: follow after build ends
+  # TODO: move somewhere
+  tail-cmd = async (job-name, follow) ->*
+    build = yield tail-last-build job-name
+    build.stream.pipe process.stdout
+    build.stream.on \end ->
+      console.log "that's all folks"
+
+  tail-cmd job-name, true
 
 default
   yargs.show-help!
