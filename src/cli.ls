@@ -15,7 +15,8 @@ argv = require 'yargs'
     description : "follow a job's build logs"
     alias       : \follow
   .help 'help', 'show help'
-  .example 'jenkins tail my-funny-build -f'
+  .alias 'h', 'help'
+  .example 'jenkins tail scary-production-build -f'
   .argv
 
 USAGE =
