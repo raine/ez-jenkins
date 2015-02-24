@@ -1,4 +1,5 @@
 require! {
+  '../constants': { POLL_DELAY_MS }
   '../config'
   '../utils': { format-url }
   bluebird: Promise
@@ -39,7 +40,7 @@ tail-build = (job-name, build-number) ->
       return log-stream.push null
 
     if stop is not true
-      set-timeout (-> get-next-chunk next-start), 1000
+      set-timeout (-> get-next-chunk next-start), POLL_DELAY_MS
 
   log-stream = new Readable!
   log-stream._read = !->
