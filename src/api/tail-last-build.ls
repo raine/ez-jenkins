@@ -59,8 +59,9 @@ wait-for-build = async (job-name, build-number) ->*
   switch res.status-code
   | 404
     yield Promise.delay POLL_DELAY_MS
-    yield wait-for-build job-name, build-number
-  | otherwise => res
+    return yield wait-for-build job-name, build-number
+  | 200
+    return yield Promise.resolve body
 
 module.exports = async (job-name, follow) ->*
   debug 'tail-last-build job-name=%s follow=%s', job-name, follow
