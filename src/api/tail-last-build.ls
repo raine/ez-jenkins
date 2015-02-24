@@ -2,9 +2,10 @@ require! {
   '../constants': { POLL_DELAY_MS }
   '../config'
   '../utils': { format-url }
+  './get-last-build'
+  './get-build'
   bluebird: Promise
   stream: { Readable }
-  './last-build'
 }
 
 request = Promise.promisify require 'request'
@@ -51,12 +52,25 @@ tail-build = (job-name, build-number) ->
 
   log-stream
 
-module.exports = async (job-name) ->*
-  debug 'tail-last-build job-name=%s', job-name
+wait-for-build = async (job-name, build-number) ->*
+  debug 'wait-for-build job-name=%s build-number=%d', job-name, build-number
+  [res, body] = yield get-build job-name, build-number
 
-  build = yield last-build job-name
+  switch res.status-code
+  | 404
+    yield Promise.delay POLL_DELAY_MS
+    yield wait-for-build job-name, build-number
+  | otherwise => res
+
+module.exports = async (job-name, follow) ->*
+  debug 'tail-last-build job-name=%s follow=%s', job-name, follow
+
+  build  = yield get-last-build job-name
   stream = tail-build job-name, build.number
-  stream.on \end ->
-    console.log 'completed'
+
+  if follow then stream.on \end, async ->*
+    debug 1
+    foo = yield wait-for-build job-name, build.number + 1
+    debug 2
 
   return merge build, { stream }

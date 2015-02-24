@@ -10,7 +10,7 @@ async = Promise.coroutine
 argv = require 'yargs'
   .usage 'Usage: $0 <command> [options]'
   .command 'tail', 'read build logs'
-  .option 'f', 
+  .option 'f',
     type        : \boolean
     description : "follow a job's build logs"
     alias       : \follow
@@ -30,7 +30,7 @@ case \tail
   # TODO: follow after build ends
   # TODO: move somewhere
   tail-cmd = async (job-name, follow) ->*
-    build = yield tail-last-build job-name
+    build = yield tail-last-build job-name, follow
     build.stream.pipe process.stdout
     build.stream.on \end ->
       console.log "that's all folks"
