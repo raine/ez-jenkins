@@ -6,6 +6,7 @@ require! {
   './get-build'
   bluebird: Promise
   stream: { Readable }
+  through2: through
 }
 
 request = Promise.promisify require 'request'
@@ -63,15 +64,24 @@ wait-for-build = async (job-name, build-number) ->*
   | 200
     return yield Promise.resolve body
 
+recur-tail = (output, follow, job-name, build-number) -->
+  recur = recur-tail output, follow, job-name
+
+  debug 'recur-tail build-number=%d', build-number
+  stream = tail-build job-name, build-number
+  stream.pipe output, end: follow is false
+
+  if follow
+    stream.on \end, async ->*
+      debug 'stream ended build-number=%d', build-number
+      next-build = yield wait-for-build job-name, build-number + 1
+      recur next-build.number
+
 module.exports = async (job-name, follow) ->*
-  debug 'tail-last-build job-name=%s follow=%s', job-name, follow
+  debug 'job-name=%s follow=%s', job-name, follow
+  output = through.obj!
+  output.set-max-listeners 0
+  last-build = yield get-last-build job-name
+  recur-tail output, follow, job-name, last-build.number
 
-  build  = yield get-last-build job-name
-  stream = tail-build job-name, build.number
-
-  if follow then stream.on \end, async ->*
-    debug 1
-    foo = yield wait-for-build job-name, build.number + 1
-    debug 2
-
-  return merge build, { stream }
+  return output

@@ -18,24 +18,25 @@ argv = require 'yargs'
   .example 'jenkins tail my-funny-build -f'
   .argv
 
+USAGE =
+  tail: 'jenkins tail [job-name]'
+
+usage-help = ->
+  console.log "Usage: #{USAGE[it]}"
+  process.exit!
+
 switch argv._.0
-case \tail
+| 'tail'
   job-name = argv._.1
 
   unless job-name
-    console.log 'Usage: jenkins tail [job-name]'
+    usage-help \tail
     process.exit!
 
-  # TODO: build number
-  # TODO: follow after build ends
-  # TODO: move somewhere
-  tail-cmd = async (job-name, follow) ->*
-    build = yield tail-last-build job-name, follow
-    build.stream.pipe process.stdout
-    build.stream.on \end ->
-      console.log "that's all folks"
+  do async ->*
+    output = yield tail-last-build job-name, argv.follow
+    output.pipe process.stdout
+    output.on \end process.exit
 
-  tail-cmd job-name, true
-
-default
+| otherwise
   yargs.show-help!
