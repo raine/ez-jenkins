@@ -5,6 +5,7 @@ LIB = $(patsubst src/%.ls, lib/%.js, $(SRC))
 
 MOCHA = ./node_modules/.bin/mocha
 LSC = node_modules/.bin/lsc
+NAME = $(shell node -e "console.log(require('./package.json').name)")
 
 default: all
 
@@ -18,8 +19,15 @@ all: compile
 
 compile: $(LIB) package.json
 
-install: clean
+install: clean all
 	npm install -g .
+
+reinstall:
+	npm uninstall -g ${NAME}
+	make install
+
+dev-install: package.json
+	npm install .
 
 clean:
 	rm -rf lib
