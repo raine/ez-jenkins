@@ -33,8 +33,8 @@ switch argv._.0
 
   do async ->*
     output = yield tail-last-build job-name, argv.follow
-    output.pipe process.stdout
-    output.on \end process.exit
+      ..pipe process.stdout
+      ..on \end process.exit
 
 | otherwise
   yargs.show-help!
