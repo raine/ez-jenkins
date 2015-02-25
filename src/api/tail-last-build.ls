@@ -70,12 +70,12 @@ recur-tail = (output, follow, job-name, build-number) -->
   debug 'recur-tail build-number=%d', build-number
   stream = tail-build job-name, build-number
     ..pipe output, end: follow is false
-
-  if follow
-    stream.on \end, async ->*
+    ..on \end, async ->*
       debug 'stream ended build-number=%d', build-number
-      next-build = yield wait-for-build job-name, build-number + 1
-      recur next-build.number
+
+      if follow
+        next-build = yield wait-for-build job-name, build-number + 1
+        recur next-build.number
 
 module.exports = async (job-name, follow) ->*
   debug 'job-name=%s follow=%s', job-name, follow
