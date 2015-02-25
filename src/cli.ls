@@ -1,7 +1,7 @@
 require! {
   yargs
-  './api/tail-last-build'
   bluebird: Promise
+  './api/tail-last-build'
 }
 
 debug = require './debug' <| __filename
