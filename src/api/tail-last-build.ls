@@ -45,11 +45,11 @@ tail-build = (job-name, build-number) ->
       set-timeout (-> get-next-chunk next-start), POLL_DELAY_MS
 
   log-stream = new Readable!
-  log-stream._read = !->
-    debug '_read reading=%s', reading
-    unless reading
-      reading := true
-      get-next-chunk start
+    .._read = !->
+      debug '_read reading=%s', reading
+      unless reading
+        reading := true
+        get-next-chunk start
 
   log-stream
 
@@ -69,7 +69,7 @@ recur-tail = (output, follow, job-name, build-number) -->
 
   debug 'recur-tail build-number=%d', build-number
   stream = tail-build job-name, build-number
-  stream.pipe output, end: follow is false
+    ..pipe output, end: follow is false
 
   if follow
     stream.on \end, async ->*
@@ -80,7 +80,7 @@ recur-tail = (output, follow, job-name, build-number) -->
 module.exports = async (job-name, follow) ->*
   debug 'job-name=%s follow=%s', job-name, follow
   output = through.obj!
-  output.set-max-listeners 0
+    ..set-max-listeners 0
   last-build = yield get-last-build job-name
   recur-tail output, follow, job-name, last-build.number
 
