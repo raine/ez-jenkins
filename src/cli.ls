@@ -20,7 +20,7 @@ argv = require 'yargs'
   .argv
 
 USAGE =
-  tail: 'jenkins tail [job-name]'
+  tail: 'jenkins tail [-f] job-name'
 
 usage-help = ->
   console.log "Usage: #{USAGE[it]}"
