@@ -29,7 +29,7 @@ usage-help = ->
 switch argv._.0
 | 'tail'
   job-name = argv._.1
-  unless job-name then usage-help \tail
+  usage-help \tail unless job-name
 
   do async ->*
     output = yield tail-last-build job-name, argv.follow
