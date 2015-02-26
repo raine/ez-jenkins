@@ -1,8 +1,8 @@
 {
-  "name": "jenkins",
+  "name": "jenkins-cli",
   "version": "0.0.1",
   "description": "",
-  "repository": "raine/jenkins",
+  "repository": "raine/jenkins-cli",
   "preferGlobal": true,
   "scripts": {
     "test": "make test",
