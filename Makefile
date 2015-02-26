@@ -19,7 +19,7 @@ all: compile
 
 compile: $(LIB) package.json
 
-install: clean all
+install: clean
 	npm install -g .
 
 reinstall:
