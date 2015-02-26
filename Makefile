@@ -39,6 +39,5 @@ publish: all test
 test: compile
 	@$(MOCHA) \
 		--timeout 20000 \
-		--require ./test/lib/globals.ls \
 		--compilers ls:LiveScript \
 		--reporter dot
