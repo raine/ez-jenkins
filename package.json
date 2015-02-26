@@ -4,6 +4,9 @@
   "description": "",
   "repository": "raine/jenkins-cli",
   "preferGlobal": true,
+  "keywords": [
+    "jenkins"
+  ],
   "scripts": {
     "test": "make test",
     "prepublish": "make compile"
