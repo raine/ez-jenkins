@@ -8,7 +8,7 @@ debug = require './debug' <| __filename
 async = Promise.coroutine
 
 argv = require 'yargs'
-  .usage 'Usage: $0 <command> [options]'
+  .usage 'Usage: jenkins <command> [options]'
   .command 'tail', 'read build logs'
   .option 'f',
     type        : \boolean
@@ -16,7 +16,6 @@ argv = require 'yargs'
     alias       : \follow
   .help 'help', 'show help'
   .alias 'h', 'help'
-  .example 'jenkins tail scary-production-build -f'
   .argv
 
 USAGE =
