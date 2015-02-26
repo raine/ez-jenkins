@@ -1,0 +1,7 @@
+Usage: jenkins <command> [options]
+
+Commands:
+  tail    read build logs
+
+Options:
+  -f, --follow  follow a job's build logs
