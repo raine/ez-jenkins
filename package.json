@@ -21,7 +21,7 @@
   "dependencies": {
     "bluebird": "^2.9.12",
     "debug": "^2.1.1",
-    "gnode": "^0.1.1",
+    "generator-supported": "0.0.1",
     "qs": "^2.3.3",
     "ramda": "^0.10.0",
     "request": "^2.53.0",

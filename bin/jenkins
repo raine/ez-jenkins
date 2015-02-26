@@ -1,2 +1,10 @@
-#!/usr/bin/env node
-require('../lib');
+#!/bin/sh
+":" //# comment; exec /usr/bin/env node --harmony "$0" "$@"
+
+var generators = require('generator-supported');
+if (generators) {
+  require('../lib');
+} else {
+  console.log('ERROR: node >= v0.11.3 is required for generators');
+  process.exit(1);
+}
