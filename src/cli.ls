@@ -21,14 +21,14 @@ argv = require 'yargs'
 USAGE =
   tail: 'jenkins tail [-f] job-name'
 
-usage-help = ->
+print-usage-help = ->
   console.log "Usage: #{USAGE[it]}"
   process.exit!
 
 switch argv._.0
 | 'tail'
   job-name = argv._.1
-  usage-help \tail unless job-name
+  print-usage-help \tail unless job-name
 
   do async ->*
     log = yield tail-last-build job-name, argv.follow
