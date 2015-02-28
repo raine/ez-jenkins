@@ -31,7 +31,7 @@ switch argv._.0
   print-usage-help \tail unless job-name
 
   do async ->*
-    log = yield tail-last-build job-name, argv.follow
+    yield tail-last-build job-name, argv.follow
       ..cata do
         Just: ->
           it.pipe process.stdout
