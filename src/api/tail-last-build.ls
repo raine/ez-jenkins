@@ -64,7 +64,7 @@ wait-for-build = async (job-name, build-number) ->*
   | 200
     return yield Promise.resolve body
 
-recur-tail = (output, follow, job-name, build-number) -->
+recur-tail = (output, follow, job-name, build-number) !-->
   recur = recur-tail output, follow, job-name
 
   debug 'recur-tail build-number=%d', build-number
