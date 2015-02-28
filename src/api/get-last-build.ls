@@ -2,7 +2,7 @@ require! {
   bluebird: Promise
   '../utils': { format-url }
   '../constants': { BUILD_KEYS }
-  sanctuary: S
+  'data.maybe': Maybe
 }
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
@@ -15,4 +15,4 @@ module.exports = (job-name) ->
   request { url, +json }
     .get 1
     .get \lastBuild
-    .then S.to-maybe
+    .then Maybe.fromNullable
