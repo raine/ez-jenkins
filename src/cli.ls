@@ -2,6 +2,7 @@ require! {
   yargs
   bluebird: Promise
   './api/tail-last-build'
+  sanctuary: {Just}
 }
 
 debug = require './debug' <| __filename
@@ -31,9 +32,15 @@ switch argv._.0
   usage-help \tail unless job-name
 
   do async ->*
-    output = yield tail-last-build job-name, argv.follow
-      ..pipe process.stdout
-      ..on \end process.exit
+    log = yield tail-last-build job-name, argv.follow
+
+    match log
+    | (instanceof Just)
+      log.value
+        .pipe process.stdout
+        .on \end process.exit
+    | otherwise
+      console.log "no such job: #job-name"
 
 | otherwise
   yargs.show-help!

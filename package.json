@@ -28,6 +28,7 @@
     "qs": "^2.3.3",
     "ramda": "^0.10.0",
     "request": "^2.53.0",
+    "sanctuary": "^0.4.0",
     "source-map-support": "^0.2.9",
     "through2": "^0.6.3",
     "yargs": "^3.2.1"

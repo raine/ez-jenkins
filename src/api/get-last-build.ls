@@ -2,6 +2,7 @@ require! {
   bluebird: Promise
   '../utils': { format-url }
   '../constants': { BUILD_KEYS }
+  sanctuary: S
 }
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
@@ -14,3 +15,4 @@ module.exports = (job-name) ->
   request { url, +json }
     .get 1
     .get \lastBuild
+    .then S.to-maybe

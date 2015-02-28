@@ -79,9 +79,10 @@ recur-tail = (output, follow, job-name, build-number) !-->
 
 module.exports = async (job-name, follow) ->*
   debug 'job-name=%s follow=%s', job-name, follow
-  output = through.obj!
-    ..set-max-listeners 0
-  last-build = yield get-last-build job-name
-  recur-tail output, follow, job-name, last-build.number
 
-  return output
+  return (yield get-last-build job-name)
+    .map (build) ->
+      output = through.obj!
+        ..set-max-listeners 0
+      recur-tail output, follow, job-name, build.number
+      output
