@@ -13,7 +13,7 @@ lib:
 	mkdir -p lib/
 
 lib/%.js: src/%.ls lib
-	$(LSC) --compile --output "$(@D)" "$<"
+	$(LSC) --compile --map=linked --output "$(@D)" "$<"
 
 all: compile
 
