@@ -25,11 +25,8 @@ format-tail-output = ->
 
     cb!
 
-cli-tail = async (argv) ->*
-  job-name = argv._.1
-  return yargs.show-help! unless job-name
-
-  output = yield tail job-name, argv.build, argv.follow
+cli-tail = async (job-name, build-number, follow) ->*
+  output = yield tail job-name, build-number, follow
   output.cata do
     Just: (output) ->
       output
@@ -39,7 +36,7 @@ cli-tail = async (argv) ->*
     Nothing: ->
       str = "unable to find job"
       console.log switch
-        | argv.build => "#str or build: #job-name [##{argv.build}]"
+        | build-number? => "#str or build: #job-name [##{build-number}]"
         | otherwise  => "#str: #job-name"
 
 module.exports = cli-tail
