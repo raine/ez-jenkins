@@ -1,33 +1,4 @@
-require! {
-  yargs
-  bluebird: Promise
-  './api/tail-last-build'
-  through2: through
-}
-
-debug = require './debug' <| __filename
-async = Promise.coroutine
-
-argv = require 'yargs'
-  .usage 'Usage: jenkins <command> [options]'
-  .command 'tail', 'read build logs'
-  .option 'f',
-    type        : \boolean
-    description : "follow a job's build logs"
-    alias       : \follow
-  .help 'help', 'show help'
-  .alias 'h', 'help'
-  .argv
-
-USAGE =
-  tail: 'jenkins tail [-f] job-name'
-
-print-usage-help = ->
-  console.log "Usage: #{USAGE[it]}"
-  process.exit!
-
-chalk = require 'chalk'
-{cyan, green, yellow, magenta, white, blue, red} = chalk
+{chalk} = require 'chalk'
 
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"
@@ -64,6 +35,4 @@ cli-tail = (argv) ->
         Nothing: ->
           console.log "no such job: #job-name"
 
-switch argv._.0
-| \tail     => cli-tail argv
-| otherwise => yargs.show-help!
+module.exports = cli-tail
