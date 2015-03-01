@@ -15,5 +15,6 @@ module.exports = (job-name) ->
   request { url, +json }
     .get 1
     .get \lastBuild
-    .then merge { job-name }
-    .then Maybe.fromNullable
+    .then ->
+      Maybe.fromNullable it
+        .map merge {job-name}
