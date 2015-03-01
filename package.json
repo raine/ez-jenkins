@@ -1,11 +1,12 @@
 {
   "name": "ez-jenkins",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "repository": "raine/ez-jenkins",
   "preferGlobal": true,
   "keywords": [
-    "jenkins", "cli"
+    "jenkins",
+    "cli"
   ],
   "scripts": {
     "test": "make test",
