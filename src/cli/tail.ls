@@ -20,7 +20,7 @@ format-tail-output = ->
       | \Object
         switch chunk.event
         | \GOT_BUILD         => cur-build := chunk.build
-        | \WAITING_FOR_BUILD => push-line 'waiting for next build...'
+        | \WAITING_FOR_BUILD => push-line 'waiting for the next build...'
 
     cb!
 
