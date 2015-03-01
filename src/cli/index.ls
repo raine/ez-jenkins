@@ -1,5 +1,5 @@
 require! {
-  '../api/tail-last-build'
+  '../api/tail-build'
   './tail'
   bluebird: Promise
   through2: through
