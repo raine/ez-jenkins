@@ -19,12 +19,15 @@ all: compile
 
 compile: $(LIB) package.json
 
-install: clean
+install: clean all
 	npm install -g .
 
 reinstall:
-	npm uninstall -g ${NAME}
+	make uninstall
 	make install
+
+uninstall:
+	npm uninstall -g ${NAME}
 
 dev-install: package.json
 	npm install .
@@ -42,5 +45,5 @@ test: compile
 		--compilers ls:LiveScript \
 		--reporter dot
 
-prepublish: compile
+prepublish:
 	sed -i "" "/source-map-support/d" lib/index.js
