@@ -36,6 +36,9 @@ cli-tail = async (argv) ->*
         .pipe process.stdout
         .on \end process.exit
     Nothing: ->
-      console.log "no such job: #job-name"
+      str = "unable to find job"
+      console.log switch
+        | argv.build => "#str or build: #job-name [##{argv.build}]"
+        | otherwise  => "#str: #job-name"
 
 module.exports = cli-tail
