@@ -20,6 +20,7 @@ all: compile
 compile: $(LIB) package.json
 
 install: clean
+	sed -i "" "/source-map-support/d" lib/index.js
 	npm install -g .
 
 reinstall:
