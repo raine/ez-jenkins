@@ -16,5 +16,5 @@ module.exports = (job-name) ->
     .get 1
     .get \lastBuild
     .then ->
-      Maybe.fromNullable it
+      Maybe.from-nullable it
         .map merge {job-name}

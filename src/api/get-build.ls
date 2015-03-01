@@ -2,6 +2,7 @@ require! {
   bluebird: Promise
   '../utils': { format-url }
   '../constants': { BUILD_KEYS }
+  'data.maybe': Maybe
 }
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
@@ -14,3 +15,7 @@ module.exports = (job-name, number) ->
   }
 
   request { url, +json }
+    .spread (res, body) ->
+      switch res.status-code
+      | 200       => Maybe.Just body
+      | otherwise => Maybe.Nothing!

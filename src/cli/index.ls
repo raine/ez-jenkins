@@ -16,6 +16,10 @@ argv = require 'yargs'
     type        : \boolean
     description : "follow a job's build logs"
     alias       : \follow
+  .option 'b',
+    type        : \number
+    description : "tail a specific build"
+    alias       : \build
   .help 'help', 'show help'
   .alias 'h', 'help'
   .argv

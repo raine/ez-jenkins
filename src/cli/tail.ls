@@ -1,8 +1,8 @@
-Promise         = require \bluebird
-async           = Promise.coroutine
-through         = require 'through2'
-tail-last-build = require '../api/tail-last-build'
-{cyan}          = require \chalk
+Promise = require \bluebird
+async   = Promise.coroutine
+through = require 'through2'
+{cyan}  = require \chalk
+{tail}  = require '../api/tail-build'
 
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"
@@ -24,19 +24,18 @@ format-tail-output = ->
 
     cb!
 
-cli-tail = (argv) ->
+cli-tail = async (argv) ->*
   job-name = argv._.1
   print-usage-help \tail unless job-name
 
-  do async ->*
-    yield tail-last-build job-name, argv.follow
-      ..cata do
-        Just: (output) ->
-          output
-            .pipe format-tail-output!
-            .pipe process.stdout
-            .on \end process.exit
-        Nothing: ->
-          console.log "no such job: #job-name"
+  output = yield tail job-name, argv.build, argv.follow
+  output.cata do
+    Just: (output) ->
+      output
+        .pipe format-tail-output!
+        .pipe process.stdout
+        .on \end process.exit
+    Nothing: ->
+      console.log "no such job: #job-name"
 
 module.exports = cli-tail

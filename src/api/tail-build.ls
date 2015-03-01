@@ -86,10 +86,16 @@ recur-tail = (output, follow, build) !-->
 
     .pipe output, end: false
 
-module.exports = async (job-name, follow) ->*
-  debug 'job-name=%s follow=%s', job-name, follow
+export tail = async (job-name, build-number, follow) ->*
+  debug 'job-name=%s build-number=%d follow=%s', job-name, build-number, follow
 
-  return (yield get-last-build job-name)
+  build = unless build-number
+    yield get-last-build job-name
+  else 
+    yield get-build job-name, build-number
+
+  return build
+    .map merge {job-name}
     .map (build) ->
       output = through.obj!
       recur-tail output, follow, build
