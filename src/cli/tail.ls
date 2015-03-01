@@ -1,4 +1,8 @@
-{cyan, red} = require 'chalk'
+Promise         = require \bluebird
+async           = Promise.coroutine
+through         = require 'through2'
+tail-last-build = require '../api/tail-last-build'
+{cyan, red}     = require \chalk
 
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"

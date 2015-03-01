@@ -1,12 +1,12 @@
 require! {
-  './api/tail-last-build'
+  '../api/tail-last-build'
   './tail'
   bluebird: Promise
   through2: through
   yargs
 }
 
-debug = require './debug' <| __filename
+debug = require '../debug' <| __filename
 async = Promise.coroutine
 
 argv = require 'yargs'
