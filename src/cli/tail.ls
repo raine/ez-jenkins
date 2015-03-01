@@ -3,6 +3,7 @@ async   = Promise.coroutine
 through = require 'through2'
 {cyan}  = require \chalk
 {tail}  = require '../api/tail-build'
+yargs   = require \yargs
 
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"
@@ -26,7 +27,7 @@ format-tail-output = ->
 
 cli-tail = async (argv) ->*
   job-name = argv._.1
-  print-usage-help \tail unless job-name
+  return yargs.show-help! unless job-name
 
   output = yield tail job-name, argv.build, argv.follow
   output.cata do
