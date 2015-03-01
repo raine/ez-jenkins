@@ -5,17 +5,17 @@ format-line = (build, line) ->
   "#build-number #line"
 
 format-tail-output = ->
-  var build
+  var cur-build
 
   through.obj (chunk, enc, cb) ->
     push-line = ~> @push new Buffer "#it\n"
 
     switch typeof! chunk
       | \String
-        push-line format-line build, chunk
+        push-line format-line cur-build, chunk
       | \Object
         switch chunk.event
-        | \GOT_BUILD         => build := chunk.build
+        | \GOT_BUILD         => cur-build := chunk.build
         | \WAITING_FOR_BUILD => push-line 'waiting for next build...'
 
     cb!
