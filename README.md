@@ -8,7 +8,7 @@ npm install -g ez-jenkins
 
 ## features
 
-- tail a job for new build logs indefinitely
+- `tail` a job for new build logs indefinitely
 
 ## usage
 
