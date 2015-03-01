@@ -89,10 +89,11 @@ recur-tail = (output, follow, build) !-->
 export tail = async (job-name, build-number, follow) ->*
   debug 'job-name=%s build-number=%d follow=%s', job-name, build-number, follow
 
-  build = unless build-number
-    yield get-last-build job-name
-  else 
-    yield get-build job-name, build-number
+  build = yield switch
+    | build-number?
+      get-build job-name, build-number
+    | otherwise
+      get-last-build job-name
 
   return build
     .map merge {job-name}
