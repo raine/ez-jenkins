@@ -2,7 +2,7 @@
   "name": "ez-jenkins",
   "version": "0.0.4",
   "description": "",
-  "repository": "raine/jenkins-cli",
+  "repository": "raine/ez-jenkins",
   "preferGlobal": true,
   "keywords": [
     "jenkins"
