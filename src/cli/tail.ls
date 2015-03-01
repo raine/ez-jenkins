@@ -1,4 +1,4 @@
-{chalk} = require 'chalk'
+{cyan, red} = require 'chalk'
 
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"
@@ -33,6 +33,6 @@ cli-tail = (argv) ->
             .pipe process.stdout
             .on \end process.exit
         Nothing: ->
-          console.log "no such job: #job-name"
+          console.log red "no such job: #job-name"
 
 module.exports = cli-tail
