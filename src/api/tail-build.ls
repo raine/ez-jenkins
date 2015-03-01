@@ -61,8 +61,8 @@ wait-for-build = async (job-name, build-number) ->*
   debug 'wait-for-build job-name=%s build-number=%d', job-name, build-number
   build = yield get-build job-name, build-number
 
-  switch build
-  | (.is-just)
+  switch
+  | build.is-just
     return yield Promise.resolve merge {job-name}, build.get!
   | otherwise
     yield Promise.delay POLL_DELAY_MS
