@@ -2,7 +2,7 @@ Promise         = require \bluebird
 async           = Promise.coroutine
 through         = require 'through2'
 tail-last-build = require '../api/tail-last-build'
-{cyan, red}     = require \chalk
+{cyan}          = require \chalk
 
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"
@@ -37,6 +37,6 @@ cli-tail = (argv) ->
             .pipe process.stdout
             .on \end process.exit
         Nothing: ->
-          console.log red "no such job: #job-name"
+          console.log "no such job: #job-name"
 
 module.exports = cli-tail
