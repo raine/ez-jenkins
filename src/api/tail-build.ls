@@ -59,14 +59,14 @@ tail-build = (job-name, build-number) ->
 
 wait-for-build = async (job-name, build-number) ->*
   debug 'wait-for-build job-name=%s build-number=%d', job-name, build-number
-  [res, body] = yield get-build job-name, build-number
+  build = yield get-build job-name, build-number
 
-  switch res.status-code
-  | 404
+  switch build
+  | (.is-just)
+    return yield Promise.resolve merge {job-name}, build.get!
+  | otherwise
     yield Promise.delay POLL_DELAY_MS
     return yield wait-for-build job-name, build-number
-  | 200
-    return yield Promise.resolve merge {job-name}, body
 
 recur-tail = (output, follow, build) !-->
   debug 'recur-tail job-name=%s build-number=%d', build.job-name, build.number
@@ -81,13 +81,13 @@ recur-tail = (output, follow, build) !-->
 
       if follow
         output.write event: \WAITING_FOR_BUILD
-        recur <|
-          yield wait-for-build build.job-name, build.number + 1
+        next-build = yield wait-for-build build.job-name, build.number + 1
+        recur next-build
 
     .pipe output, end: false
 
 export tail = async (job-name, build-number, follow) ->*
-  debug 'job-name=%s build-number=%d follow=%s', job-name, build-number, follow
+  debug 'tail job-name=%s build-number=%d follow=%s', job-name, build-number, follow
 
   build = yield switch
     | build-number?
