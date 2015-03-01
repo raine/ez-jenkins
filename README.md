@@ -18,6 +18,7 @@ Usage: jenkins <command> [options]
 
 Commands:
   tail    read build logs
+  setup   configure ez-jenkins
 ```
 
 ```
