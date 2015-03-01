@@ -11,7 +11,7 @@ argv = switch command
     .usage 'Usage: jenkins tail [options] <job-name>'
     .option \f,
       type        : \boolean
-      description : "follow a job's build logs"
+      description : "follow a job's build logs indefinitely (think tail -f)"
       alias       : \follow
     .option \b,
       type        : \number
