@@ -25,6 +25,6 @@ $ jenkins tail -h
 Usage: jenkins tail [options] <job-name>
 
 Options:
-  -f, --follow  follow a job's build logs
-  -b, --build   tail a specific build
+  -f, --follow  follow a job's build logs indefinitely (think tail -f)
+  -b, --build   show output for a specific build
 ```
