@@ -1,5 +1,9 @@
 # ez-jenkins-cli
 
+```sh
+npm install -g ez-jenkins
+```
+
 ```
 Usage: jenkins <command> [options]
 

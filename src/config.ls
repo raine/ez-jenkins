@@ -9,10 +9,9 @@ debug config-path
 default-config = {}
 
 safe-read = (path) ->
-  switch fs.exists-sync path
-  | true
+  if fs.exists-sync path
     require path
-  | otherwise
+  else
     console.log "ERROR: config file unavailable (#config-path)"
     process.exit 1
 
