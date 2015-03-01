@@ -5,7 +5,7 @@
   "repository": "raine/ez-jenkins",
   "preferGlobal": true,
   "keywords": [
-    "jenkins"
+    "jenkins", "cli"
   ],
   "scripts": {
     "test": "make test",
