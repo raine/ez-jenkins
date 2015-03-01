@@ -1,7 +1,9 @@
 require! {
-  yargs
-  bluebird: Promise
   './api/tail-last-build'
+  './tail'
+  bluebird: Promise
+  through2: through
+  yargs
 }
 
 debug = require './debug' <| __filename
@@ -26,18 +28,5 @@ print-usage-help = ->
   process.exit!
 
 switch argv._.0
-| 'tail'
-  job-name = argv._.1
-  print-usage-help \tail unless job-name
-
-  do async ->*
-    yield tail-last-build job-name, argv.follow
-      ..cata do
-        Just: ->
-          it.pipe process.stdout
-            .on \end process.exit
-        Nothing: ->
-          console.log "no such job: #job-name"
-
-| otherwise
-  yargs.show-help!
+| \tail     => tail argv
+| otherwise => yargs.show-help!

@@ -7,6 +7,7 @@ require! {
   bluebird: Promise
   stream: { Readable }
   through2: through
+  split
 }
 
 request = Promise.promisify require 'request'
@@ -34,6 +35,9 @@ tail-build = (job-name, build-number) ->
     start     := next-start
 
     if got-data
+      # remove last newline if build is done, workaround for
+      # https://github.com/dominictarr/split/issues/13
+      body := body - /\r\n$/ unless more-data
       stop = not log-stream.push body, 'utf8'
       debug 'stop=%s', stop
 
@@ -51,7 +55,7 @@ tail-build = (job-name, build-number) ->
         reading := true
         get-next-chunk start
 
-  log-stream
+  log-stream .pipe split!
 
 wait-for-build = async (job-name, build-number) ->*
   debug 'wait-for-build job-name=%s build-number=%d', job-name, build-number
@@ -62,20 +66,25 @@ wait-for-build = async (job-name, build-number) ->*
     yield Promise.delay POLL_DELAY_MS
     return yield wait-for-build job-name, build-number
   | 200
-    return yield Promise.resolve body
+    return yield Promise.resolve merge {job-name}, body
 
-recur-tail = (output, follow, job-name, build-number) !-->
-  recur = recur-tail output, follow, job-name
+recur-tail = (output, follow, build) !-->
+  debug 'recur-tail job-name=%s build-number=%d', build.job-name, build.number
+  recur = recur-tail output, follow
 
-  debug 'recur-tail build-number=%d', build-number
-  stream = tail-build job-name, build-number
-    ..pipe output, end: follow is false
-    ..on \end, async ->*
-      debug 'stream ended build-number=%d', build-number
+  stream = tail-build build.job-name, build.number
+    .once \data !->
+      output.write merge {build}, event: \GOT_BUILD
+
+    .on \end, async ->*
+      debug 'stream ended build-number=%d', build.number
 
       if follow
-        next-build = yield wait-for-build job-name, build-number + 1
-        recur next-build.number
+        output.write event: \WAITING_FOR_BUILD
+        recur <|
+          yield wait-for-build build.job-name, build.number + 1
+
+    .pipe output, end: false
 
 module.exports = async (job-name, follow) ->*
   debug 'job-name=%s follow=%s', job-name, follow
@@ -83,6 +92,5 @@ module.exports = async (job-name, follow) ->*
   return (yield get-last-build job-name)
     .map (build) ->
       output = through.obj!
-        ..set-max-listeners 0
-      recur-tail output, follow, job-name, build.number
+      recur-tail output, follow, build
       output
