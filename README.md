@@ -1,3 +1,6 @@
+# ez-jenkins-cli
+
+```
 Usage: jenkins <command> [options]
 
 Commands:
@@ -6,3 +9,4 @@ Commands:
 Options:
   -f, --follow  follow a job's build logs
   -b, --build   tail a specific build    
+```
