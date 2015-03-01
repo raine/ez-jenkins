@@ -62,7 +62,7 @@ wait-for-build = async (job-name, build-number) ->*
   build = yield get-build job-name, build-number
 
   switch
-  | build.is-just
+  | build.is-just =>
     return yield Promise.resolve merge {job-name}, build.get!
   | otherwise
     yield Promise.delay POLL_DELAY_MS
@@ -99,5 +99,5 @@ export tail = async (job-name, build-number, follow) ->*
     .map merge {job-name}
     .map (build) ->
       output = through.obj!
-      recur-tail output, follow, build
+      recur-tail output, (not build-number and follow), build
       output
