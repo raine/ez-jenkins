@@ -2,7 +2,8 @@ require! yargs
 
 command = yargs
   .usage 'Usage: jenkins <command> [options]'
-  .command \tail, 'read build logs'
+  .command \tail,  'read build logs'
+  .command \setup, 'configure ez-jenkins'
   .argv._.0
 
 argv = switch command
@@ -20,6 +21,8 @@ argv = switch command
     .help \help, 'show help'
     .alias \h, \help
     .argv
+| \setup
+  yargs.argv
 | otherwise
   yargs.show-help!
 
@@ -27,3 +30,5 @@ switch command
 | \tail
   return yargs.show-help! unless argv._.1
   (require './tail') argv._.1, argv.build, argv.follow
+| \setup
+  (require './setup')!

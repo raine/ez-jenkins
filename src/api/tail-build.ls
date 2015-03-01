@@ -1,6 +1,5 @@
 require! {
   '../constants': { POLL_DELAY_MS }
-  '../config'
   '../utils': { format-url }
   './get-last-build'
   './get-build'

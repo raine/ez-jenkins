@@ -1,21 +1,35 @@
-# TODO: check that URL is available
+yaml   = require 'js-yaml'
+fs     = require 'fs'
+path   = require 'path'
+mkdirp = require 'mkdirp'
 
-require! { path, fs }
 debug = require './debug' <| __filename
-
 home = process.env.HOME
-config-path = path.join home, \.config, \jenkins, \config.json
+export config-path = path.join home, \.config, \jenkins, \config.yaml
 debug config-path
-default-config = {}
 
 safe-read = (path) ->
+  debug 'reading path=%s', path
+
   if fs.exists-sync path
-    require path
+    yaml-str = fs.read-file-sync path, 'utf8'
+    yaml.safe-load yaml-str
   else
-    console.log "ERROR: config file unavailable (#config-path)"
+    """
+    config unavailable (#config-path)
+    run `jenkins setup`
+    """ |> console.log
+
     process.exit 1
 
-config = merge default-config, safe-read config-path
-debug config
+var config
+export get = (key) ->
+  debug 'get key=%s', key
+  config ?:= safe-read config-path
+  config[key]
 
-module.exports = config
+export save = (obj) ->
+  debug 'save obj=%s', JSON.stringify obj
+  mkdirp.sync path.dirname config-path
+  yaml-str = yaml.safe-dump obj
+  fs.write-file-sync config-path, yaml-str
