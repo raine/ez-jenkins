@@ -20,7 +20,7 @@ Usage: jenkins <command> [options]
 
 Commands:
   tail    read build logs
-  setup   configure jenkins url
+  setup   interactively configure jenkins base url
 ```
 
 ```

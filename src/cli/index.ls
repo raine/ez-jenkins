@@ -3,7 +3,7 @@ require! yargs
 command = yargs
   .usage 'Usage: jenkins <command> [options]'
   .command \tail,  'read build logs'
-  .command \setup, 'configure jenkins url'
+  .command \setup, 'interactively configure jenkins base url'
   .argv._.0
 
 argv = switch command
