@@ -19,6 +19,8 @@ argv = switch command
       description : 'show output for a specific build'
       alias       : \build
     .help \help, 'show help'
+    .example 'jenkins tail my-build -f'
+    .example 'jenkins tail my-build -b 70'
     .alias \h, \help
     .argv
 | \setup
