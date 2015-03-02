@@ -1,6 +1,6 @@
 # ez-jenkins [![npm version](https://badge.fury.io/js/ez-jenkins.svg)](https://www.npmjs.com/package/ez-jenkins)
 
-> Easy CLI for Jenkins
+> Easy CLI for Jenkins CI
 
 ```sh
 npm install -g ez-jenkins
