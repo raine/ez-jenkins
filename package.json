@@ -33,7 +33,7 @@
     "mkdirp": "^0.5.0",
     "qs": "^2.3.3",
     "ramda": "^0.10.0",
-    "readline-sync": "^0.7.2",
+    "readline-sync": "^0.7.3",
     "request": "^2.53.0",
     "split": "^0.3.3",
     "through2": "^0.6.3",
