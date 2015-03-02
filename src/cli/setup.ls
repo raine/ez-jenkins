@@ -1,6 +1,6 @@
 readline-sync = require 'readline-sync'
 config = require '../config'
-{inverse} = require 'chalk'
+{bold} = require 'chalk'
 
 module.exports = ->
   """
