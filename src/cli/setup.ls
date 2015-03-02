@@ -12,4 +12,7 @@ module.exports = ->
   """ |> console.log
 
   config.save url: readline-sync.prompt!
-  "configuration written to #{config.config-path}" |> console.log
+  """
+  configuration written to #{config.config-path}
+  ready to go!
+  """ |> console.log
