@@ -23,8 +23,8 @@ install: clean all
 	npm install -g .
 
 reinstall:
-	make uninstall
-	make install
+	$(MAKE) uninstall
+	$(MAKE) install
 
 uninstall:
 	npm uninstall -g ${NAME}
