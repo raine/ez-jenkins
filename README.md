@@ -4,6 +4,8 @@
 
 ```sh
 npm install -g ez-jenkins
+jenkins setup
+jenkins tail <job-name>
 ```
 
 ## features
