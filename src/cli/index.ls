@@ -18,13 +18,17 @@ argv = switch command
       type        : \number
       description : 'show output for a specific build'
       alias       : \build
-    .help \help, 'show help'
     .example 'jenkins tail my-build -f'
     .example 'jenkins tail my-build -b 70'
+    .help \h, 'show help'
     .alias \h, \help
     .argv
 | \setup
-  yargs.argv
+  yargs
+    .help \h, 'show help'
+    .alias \h, \help
+    .argv
+
 | otherwise
   yargs.show-help!
 
