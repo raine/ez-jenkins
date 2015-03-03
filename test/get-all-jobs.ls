@@ -1,5 +1,5 @@
-proxyquire = require 'proxyquire'
-nock = require 'nock'
+require! proxyquire
+require! nock
 require! bluebird: {coroutine: async}
 require! ramda: {always}
 
