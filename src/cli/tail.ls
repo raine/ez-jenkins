@@ -12,7 +12,7 @@ format-line = (build, line) ->
 format-tail-output = ->
   var cur-build
 
-  through.obj (chunk, enc, cb) ->
+  through.obj (chunk, enc, next) ->
     push-line = ~> @push new Buffer "#it\n"
 
     switch typeof! chunk
@@ -23,7 +23,7 @@ format-tail-output = ->
         | \GOT_BUILD         => cur-build := chunk.build
         | \WAITING_FOR_BUILD => push-line 'waiting for the next build...'
 
-    cb!
+    next!
 
 cli-tail = async (job-name, build-number, follow) ->*
   output = yield tail job-name, build-number, follow
