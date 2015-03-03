@@ -35,8 +35,9 @@ cli-tail = async (job-name, build-number, follow) ->*
         .on \end process.exit
     Nothing: ->
       str = 'unable to find job'
-      console.log switch
-                  | build-number? => "#str or build: #job-name [##{build-number}]"
-                  | otherwise     => "#str: #job-name"
+      console.log <|
+        switch
+        | build-number? => "#str or build: #job-name [##{build-number}]"
+        | otherwise     => "#str: #job-name"
 
 module.exports = cli-tail
