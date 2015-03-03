@@ -9,6 +9,8 @@ require! {
   split
 }
 
+
+require! ramda: {merge, pick}
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 async = Promise.coroutine
