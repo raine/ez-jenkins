@@ -15,7 +15,6 @@ JSON_DATA =
     * name: \foo-3
     * name: \foo-4
 
-nock.disable-net-connect!
 nock 'https://ci.jenkins.com'
   .get '/api/json?tree=jobs%5Bname%5D'
   .reply 200, JSON_DATA
