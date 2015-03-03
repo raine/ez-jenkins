@@ -5,6 +5,12 @@ through = require 'through2'
 {tail}  = require '../api/tail-build'
 yargs   = require \yargs
 
+error = (job-name, build-number) ->
+  str = 'unable to find job'
+  switch
+  | build-number? => "#str or build: #job-name [##{build-number}]"
+  | otherwise     => "#str: #job-name"
+
 format-line = (build, line) ->
   build-number = cyan "[##{build.number}]"
   "#build-number #line"
@@ -34,10 +40,6 @@ cli-tail = async (job-name, build-number, follow) ->*
         .pipe process.stdout
         .on \end process.exit
     Nothing: ->
-      str = 'unable to find job'
-      console.log <|
-        switch
-        | build-number? => "#str or build: #job-name [##{build-number}]"
-        | otherwise     => "#str: #job-name"
+      error job-name, build-number |> console.log
 
 module.exports = cli-tail
