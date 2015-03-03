@@ -1,12 +1,12 @@
 proxyquire = require 'proxyquire'
 nock = require 'nock'
 require! bluebird: {coroutine: async}
+require! ramda: {always}
 
 get-all-jobs = proxyquire '../src/api/get-all-jobs',
   './config':
     '@global': true
-    get: (key) ->
-      'https://ci.jenkins.com' if key is 'url'
+    get: always 'https://ci.jenkins.com'
 
 JSON_DATA =
   jobs:
