@@ -8,6 +8,10 @@ jenkins setup
 jenkins tail <job-name>
 ```
 
+## requirements
+
+- node >= v0.11.3
+
 ## features
 
 - `tail` a job for output indefinitely
@@ -33,4 +37,4 @@ Options:
   -b, --build   show output for a specific build
 ```
 
-![](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail.png)
+[![](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail.png)
