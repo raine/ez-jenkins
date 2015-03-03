@@ -32,3 +32,5 @@ Options:
   -f, --follow  follow a job's build logs indefinitely (think tail -f)
   -b, --build   show output for a specific build
 ```
+
+![](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail.png)
