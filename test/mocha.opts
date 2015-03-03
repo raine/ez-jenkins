@@ -1,0 +1,5 @@
+--timeout 20000
+--compilers ls:LiveScript
+--require ./test/_globals.ls
+--require ./test/_nock.ls
+--recursive

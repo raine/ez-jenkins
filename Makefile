@@ -39,11 +39,11 @@ publish: all test
 	git push --tags origin HEAD:master
 	npm publish
 
-test: compile
-	@$(MOCHA) \
-		--timeout 20000 \
-		--compilers ls:LiveScript \
-		--reporter dot
+test:
+	@$(MOCHA) --harmony-generators
+
+test-watch:
+	@$(MOCHA) --watch --harmony-generators
 
 prepublish:
 	sed -i "" "/source-map-support/d" lib/index.js

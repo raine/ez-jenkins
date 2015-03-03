@@ -9,6 +9,8 @@ require! {
   split
 }
 
+
+require! ramda: {merge, pick}
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 async = Promise.coroutine
@@ -89,10 +91,10 @@ export tail = async (job-name, build-number, follow) ->*
   debug 'tail job-name=%s build-number=%d follow=%s', job-name, build-number, follow
 
   build = yield switch
-    | build-number?
-      get-build job-name, build-number
-    | otherwise
-      get-last-build job-name
+  | build-number?
+    get-build job-name, build-number
+  | otherwise
+    get-last-build job-name
 
   return build
     .map merge {job-name}
