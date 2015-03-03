@@ -11,6 +11,7 @@ jenkins tail <job-name>
 ## features
 
 - `tail` a job for output indefinitely
+- search by pattern: provides suggestions when a job name does not match
 
 ## usage
 
