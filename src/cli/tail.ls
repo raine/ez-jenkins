@@ -7,6 +7,8 @@ get-all-jobs = require '../api/get-all-jobs'
 list-choice = require './list-choice'
 {sort-abc} = require '../utils'
 {filter, match: str-match, sort, is-empty} = require 'ramda'
+Maybe = require 'data.maybe'
+debug = require '../debug' <| __filename
 
 error = (job-name, build-number) ->
   str = 'unable to find job'
@@ -34,8 +36,16 @@ format-tail-output = ->
 
     next!
 
-grep      = -> filter str-match new RegExp it, \i
-grep-jobs = -> get-all-jobs! .then grep it
+grep         = -> filter str-match new RegExp it, \i
+grep-jobs    = -> get-all-jobs! .then grep it
+suggest-jobs = async (job-name) ->*
+  debug 'suggest-jobs job-name=%s', job-name
+  jobs = yield grep-jobs job-name
+  return Maybe
+    .from-nullable (jobs unless is-empty jobs)
+    .map sort-abc
+    .map (jobs) ->
+      list-choice 'no such job, did you mean one of these?\n', jobs
 
 cli-tail = async (job-name, build-number, follow, second-time) ->*
   output = yield tail job-name, build-number, follow
@@ -46,11 +56,12 @@ cli-tail = async (job-name, build-number, follow, second-time) ->*
         .pipe process.stdout
         .on \end process.exit
     Nothing: async ->*
-      jobs = sort-abc <| yield grep-jobs job-name
-      unless is-empty jobs or second-time
-        new-job-name = list-choice 'no such job, did you mean one of these?\n', jobs
-        cli-tail new-job-name, build-number, follow, true
-      else
-        error job-name, build-number |> console.log
+      print-err = -> error job-name, build-number |> console.log
+      return print-err! if second-time
+
+      new-job = yield suggest-jobs job-name
+      new-job.cata do
+        Just: -> cli-tail it, build-number, follow, true
+        Nothing: print-err
 
 module.exports = cli-tail
