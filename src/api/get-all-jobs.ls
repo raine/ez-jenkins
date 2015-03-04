@@ -1,6 +1,5 @@
 require! bluebird: Promise
 require! '../utils': { format-url }
-require! 'data.maybe': Maybe
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 require! ramda: {prop, map}
