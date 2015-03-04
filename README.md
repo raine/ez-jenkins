@@ -10,7 +10,7 @@ jenkins tail <job-name>
 
 ## requirements
 
-- node >= v0.11.3
+- node `>= v0.11.3`
 
 ## features
 
