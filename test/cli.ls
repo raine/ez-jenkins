@@ -1,5 +1,5 @@
 require! sinon
-require! \proxyquire
+require! proxyquire
 
 {called-with, called-with-exactly} = sinon.assert
 tail = sinon.spy!
