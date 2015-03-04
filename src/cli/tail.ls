@@ -47,7 +47,9 @@ suggest-jobs = async (job-name) ->*
     .map (jobs) ->
       list-choice 'no such job, did you mean one of these?\n', jobs
 
-cli-tail = async (job-name, build-number, follow, second-time) ->*
+cli-tail = async (opts, second-time) ->*
+  {job-name, build-number, follow} = opts
+
   output = yield tail job-name, build-number, follow
   output.cata do
     Just: (output) ->
@@ -61,7 +63,8 @@ cli-tail = async (job-name, build-number, follow, second-time) ->*
 
       new-job = yield suggest-jobs job-name
       new-job.cata do
-        Just: -> cli-tail it, build-number, follow, true
+        Just: (job-name) ->
+          cli-tail {job-name, build-number, follow}, true
         Nothing: print-err
 
 module.exports = cli-tail
