@@ -1,8 +1,8 @@
 yargs = require \yargs
 parse = require './parse'
 
-module.exports = ->
-  {command, argv} = parse process.argv.slice 2
+module.exports = (argv) ->
+  {command, argv} = parse argv
 
   switch command
   | \tail
