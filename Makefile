@@ -22,7 +22,7 @@ compile: $(LIB) package.json
 install: clean all
 	npm install -g .
 
-reinstall:
+reinstall: clean
 	$(MAKE) uninstall
 	$(MAKE) install
 
