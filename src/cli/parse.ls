@@ -21,7 +21,7 @@ module.exports = (argv) ->
       .option \b,
         type        : \number
         description : 'show output for a specific build'
-        alias       : \build
+        alias       : \build-number
       .example 'jenkins tail my-build -f'
       .example 'jenkins tail my-build -b 70'
       .help \h, 'show help'
