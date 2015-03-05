@@ -15,6 +15,7 @@ module.exports = (job-name, number) ->
   }
 
   request { url, +json }
+    # TODO: probably not handling errors properly
     .spread (res, body) ->
       debug {res.status-code, body}
       switch res.status-code
