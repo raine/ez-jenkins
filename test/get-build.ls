@@ -2,10 +2,8 @@ require! bluebird: {coroutine: async}
 require! <[ proxyquire nock ]>
 {always} = require 'ramda'
 
-URL = 'https://ci.jenkins.com'
-
 get-build = proxyquire '../src/api/get-build',
-  './config': { '@global': true, get: always URL }
+  './config': { '@global': true, get: always JENKINS_URL }
 
 JSON_DATA =
   building: false,
@@ -19,7 +17,7 @@ describe 'get-build' (,) ->
   after-each -> nock.clean-all!
 
   it 'gets build as Just if found' async ->*
-    nock 'https://ci.jenkins.com'
+    nock JENKINS_URL
       .get '/job/test-job-1234/30/api/json?tree=building%2Ctimestamp%2CestimatedDuration%2Cduration%2Cresult%2Cnumber'
       .reply 200, JSON_DATA
 
@@ -28,7 +26,7 @@ describe 'get-build' (,) ->
     deep-eq JSON_DATA, build.get!
 
   it 'gets Nothing if not found' async ->*
-    nock 'https://ci.jenkins.com'
+    nock JENKINS_URL
       .get '/job/test-job-1234/30/api/json?tree=building%2Ctimestamp%2CestimatedDuration%2Cduration%2Cresult%2Cnumber'
       .reply 404
 
