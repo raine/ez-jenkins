@@ -86,7 +86,7 @@ recur-tail = (output, follow, build) !-->
 
     .pipe output, end: false
 
-module.exports = tail-build = async (job-name, build-number, follow) ->*
+module.exports = async (job-name, build-number, follow) ->*
   debug 'tail job-name=%s build-number=%d follow=%s', job-name, build-number, follow
 
   build = yield switch
