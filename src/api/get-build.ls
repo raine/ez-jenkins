@@ -16,7 +16,7 @@ module.exports = (job-name, number) ->
 
   request { url, +json }
     .spread (res, body) ->
-      debug res.status-code, body
+      debug {res.status-code, body}
       switch res.status-code
       | 200       => Maybe.Just body
       | otherwise => Maybe.Nothing!
