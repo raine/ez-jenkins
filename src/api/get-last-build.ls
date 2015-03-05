@@ -4,7 +4,7 @@ require! {
   '../constants': { BUILD_KEYS }
   'data.maybe': Maybe
 }
-require! ramda: {merge}
+{merge} = require \ramda
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 
