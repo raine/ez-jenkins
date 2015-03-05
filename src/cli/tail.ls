@@ -50,7 +50,7 @@ suggest-jobs = async (job-name) ->*
 cli-tail = async (opts, second-time) ->*
   {job-name, build-number, follow} = opts
 
-  output = yield tail job-name, build-number, follow
+  output = yield tail-build job-name, build-number, follow
   output.cata do
     Just: (output) ->
       output
