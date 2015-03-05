@@ -78,6 +78,7 @@ recur-tail = (output, follow, build) !-->
 
     .on \end, async ->*
       debug 'stream ended build-number=%d', build.number
+      build-data = yield get-build build.job-name, build.number
 
       if follow
         output.write event: \WAITING_FOR_BUILD

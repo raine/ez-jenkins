@@ -1,7 +1,5 @@
-require! proxyquire
-require! nock
-require! bluebird: {coroutine: async}
-require! ramda: {always}
+{nock, proxyquire, async, qs} = require './test-util'
+{always} = require \ramda
 
 get-all-jobs = proxyquire '../src/api/get-all-jobs',
   './config': { '@global': true, get: always JENKINS_URL }
@@ -18,7 +16,7 @@ describe 'get-all-jobs' (,) ->
 
   it 'gets jobs as a list' async ->*
     nock JENKINS_URL
-      .get '/api/json?tree=jobs%5Bname%5D'
+      .get '/api/json?' + qs tree: 'jobs[name]'
       .reply 200, JSON_DATA
 
     jobs = yield get-all-jobs!

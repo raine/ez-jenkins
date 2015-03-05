@@ -6,7 +6,10 @@ require! ramda: {prop, map}
 
 module.exports = get-all-jobs = ->
   debug 'start'
-  url = format-url '/api/json', tree: 'jobs[name]'
-  request { url, +json }
-    .get \1
-    .then (map prop \name) . prop \jobs
+  request {
+    url: format-url '/api/json'
+    qs: { tree: 'jobs[name]' }
+    +json
+  }
+  .get \1
+  .then (map prop \name) . prop \jobs

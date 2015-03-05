@@ -10,14 +10,13 @@ debug = require '../debug' <| __filename
 module.exports = (job-name, number) ->
   debug 'job-name=%s number=%d', job-name, number
 
-  url = format-url "/job/#job-name/#number/api/json", {
-    tree: BUILD_KEYS
+  request {
+    url: format-url "/job/#job-name/#number/api/json"
+    qs: { tree: BUILD_KEYS }
+    +json
   }
-
-  request { url, +json }
-    # TODO: probably not handling errors properly
-    .spread (res, body) ->
-      debug {res.status-code, body}
-      switch res.status-code
-      | 200       => Maybe.Just body
-      | otherwise => Maybe.Nothing!
+  .spread (res, body) ->
+    debug {res.status-code, body}
+    switch res.status-code
+    | 200       => Maybe.Just body
+    | otherwise => Maybe.Nothing!
