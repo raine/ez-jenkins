@@ -46,6 +46,6 @@ test-watch:
 	@$(MOCHA) --watch --harmony-generators
 
 prepublish:
-	if [ -z "$$TRAVIS" ]; then \
+	@if [ -z "$$TRAVIS" ]; then \
 		sed -i '' '/source-map-support/d' lib/index.js; \
 	fi
