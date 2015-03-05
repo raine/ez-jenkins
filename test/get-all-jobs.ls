@@ -15,11 +15,13 @@ JSON_DATA =
     * name: \foo-3
     * name: \foo-4
 
-nock 'https://ci.jenkins.com'
-  .get '/api/json?tree=jobs%5Bname%5D'
-  .reply 200, JSON_DATA
-
 describe 'get-all-jobs' (,) ->
+  after-each -> nock.clean-all!
+
   it 'gets jobs as a list' async ->*
-   jobs = yield get-all-jobs!
-   deep-eq <[ foo-1 foo-2 foo-3 foo-4 ]>, jobs
+    nock 'https://ci.jenkins.com'
+      .get '/api/json?tree=jobs%5Bname%5D'
+      .reply 200, JSON_DATA
+
+    jobs = yield get-all-jobs!
+    deep-eq <[ foo-1 foo-2 foo-3 foo-4 ]>, jobs
