@@ -78,7 +78,12 @@ recur-tail = (output, follow, build) !-->
 
     .on \end, async ->*
       debug 'stream ended build-number=%d', build.number
-      build-data = yield get-build build.job-name, build.number
+      # TODO: redundant if tailing a completed build, but may not be worth the
+      # trouble to optimize. could be as easy as checking if `build` has a
+      # result and then not doing `get-build`
+      build-info = yield get-build build.job-name, build.number
+      build-info.chain (build-info) ->
+        output.write merge {build-info}, event: \BUILD_INFO
 
       if follow
         output.write event: \WAITING_FOR_BUILD
