@@ -9,6 +9,7 @@ list-choice = require './list-choice'
 {filter, match: str-match, sort, is-empty} = require 'ramda'
 Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
+format-build-info = require './format-build-info'
 
 error = (job-name, build-number) ->
   str = 'unable to find job'
@@ -30,9 +31,11 @@ format-tail-output = ->
     | \String
       push-line format-line cur-build, chunk
     | \Object
+      debug chunk, 'chunk'
       switch chunk.event
       | \GOT_BUILD         => cur-build := chunk.build
       | \WAITING_FOR_BUILD => push-line 'waiting for the next build...'
+      | \BUILD_INFO        => push-line format-build-info chunk.build-info
 
     next!
 
