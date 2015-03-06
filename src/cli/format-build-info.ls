@@ -1,6 +1,5 @@
 require! chalk
 require! strftime
-require! 'readable-timespan': {parse: timespan}
 require! ramda: {join}
 require! util: {format: fmt}
 require! Duration
@@ -40,7 +39,7 @@ module.exports = (build) ->
 
   duration = [
     * chalk.bold 'Duration:'
-    * timespan build.duration
+    * pretty-ms build.duration
     * format-offset offset
   ] |> join ' '
 
