@@ -2,7 +2,6 @@ require! chalk
 require! strftime
 require! ramda: {join}
 require! util: {format: fmt}
-require! Duration
 require! 'pretty-ms'
 
 offset-color = ->
