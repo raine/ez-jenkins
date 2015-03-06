@@ -18,7 +18,7 @@ offset-symbol = ->
 format-offset = (offset) ->
   color  = chalk[offset-color offset]
   symbol = offset-symbol offset
-  color "(#symbol#{pretty-ms offset})"
+  color "(#symbol#{pretty-ms Math.abs offset})"
 
 result-color = ->
   switch it
@@ -31,7 +31,7 @@ format-result = (result) ->
   color fmt "[%s]", result
 
 module.exports = (build) ->
-  offset      = build.estimated-duration - build.duration
+  offset      = build.duration - build.estimated-duration
   finished    = build.duration + build.timestamp
   since-build = Date.now! - finished
 
