@@ -89,7 +89,7 @@ recur-tail = (output, follow, build) !-->
         next-build = yield wait-for-build build.job-name, build.number + 1
         recur next-build
 
-    .pipe output, end: false
+    .pipe output, end: !follow
 
 module.exports = async (job-name, build-number, follow) ->*
   debug 'tail job-name=%s build-number=%d follow=%s', job-name, build-number, follow

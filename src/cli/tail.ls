@@ -60,7 +60,6 @@ cli-tail = async (opts, second-time) ->*
         output
           .pipe format-tail-output!
           .pipe process.stdout
-          .on \end process.exit
       Nothing: async ->*
         print-err = -> error job-name, build-number |> console.log
         return print-err! if second-time
