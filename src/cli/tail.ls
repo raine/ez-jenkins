@@ -5,7 +5,7 @@ yargs = require \yargs
 tail-build = require '../api/tail-build'
 get-all-jobs = require '../api/get-all-jobs'
 list-choice = require './list-choice'
-{sort-abc} = require '../utils'
+{sort-abc, die} = require '../utils'
 {filter, match: str-match, sort, is-empty} = require 'ramda'
 Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
@@ -53,21 +53,24 @@ suggest-jobs = async (job-name) ->*
 cli-tail = async (opts, second-time) ->*
   {job-name, build-number, follow} = opts
 
-  output = yield tail-build job-name, build-number, follow
-  output.cata do
-    Just: (output) ->
-      output
-        .pipe format-tail-output!
-        .pipe process.stdout
-        .on \end process.exit
-    Nothing: async ->*
-      print-err = -> error job-name, build-number |> console.log
-      return print-err! if second-time
+  try
+    output = yield tail-build job-name, build-number, follow
+    output.cata do
+      Just: (output) ->
+        output
+          .pipe format-tail-output!
+          .pipe process.stdout
+          .on \end process.exit
+      Nothing: async ->*
+        print-err = -> error job-name, build-number |> console.log
+        return print-err! if second-time
 
-      new-job = yield suggest-jobs job-name
-      new-job.cata do
-        Just: (job-name) ->
-          cli-tail {job-name, build-number, follow}, true
-        Nothing: print-err
+        new-job = yield suggest-jobs job-name
+        new-job.cata do
+          Just: (job-name) ->
+            cli-tail {job-name, build-number, follow}, true
+          Nothing: print-err
+  catch
+    die e
 
 module.exports = cli-tail
