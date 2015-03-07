@@ -2,7 +2,7 @@
 {always} = require \ramda
 
 get-all-jobs = proxyquire '../src/api/get-all-jobs',
-  './config': { '@global': true, get: always JENKINS_URL }
+  '../utils': { '@global': true, format-url: fake-format-url }
 
 JSON_DATA =
   jobs:

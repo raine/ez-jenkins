@@ -2,7 +2,7 @@
 {always} = require \ramda
 
 get-build = proxyquire '../src/api/get-build',
-  './config': { '@global': true, get: always JENKINS_URL }
+  '../utils': { '@global': true, format-url: fake-format-url }
 
 JSON_DATA =
   building: false,

@@ -6,7 +6,8 @@ require! {
   bluebird: Promise
   stream: { Readable }
   through2: through
-  split
+  split,
+  'data.maybe': Maybe
 }
 
 {merge, pick} = require \ramda
@@ -78,7 +79,10 @@ recur-tail = (output, follow, build) !-->
 
     .on \end, async ->*
       debug 'stream ended build-number=%d', build.number
-      build-data = yield get-build build.job-name, build.number
+      build-info = unless build.building then Maybe.of build
+                   else   yield get-build build.job-name, build.number
+      build-info.chain (build-info) ->
+        output.write merge {build-info}, event: \BUILD_INFO
 
       if follow
         output.write event: \WAITING_FOR_BUILD
