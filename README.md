@@ -2,7 +2,7 @@
 
 <p align="right">
   <a href="https://github.com/raine/ez-jenkins/blob/media/tail.gif">
-    <img align="right" width="198" height="135" src="https://github.com/raine/ez-jenkins/blob/media/tail-anim-small.gif">
+    <img align="right" width="198" height="135" src="https://raw.githubusercontent.com/raine/ez-jenkins/media/tail.gif">
   </a>
 </p>
 
