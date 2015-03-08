@@ -20,7 +20,7 @@ all: compile
 compile: $(LIB) package.json
 
 shrinkwrap: package.json
-	npm-shrinkwrap --dev
+	npm-shrinkwrap
 
 install: clean all
 	npm install -g .
