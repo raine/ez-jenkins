@@ -1,7 +1,7 @@
 {
   "name": "ez-jenkins",
   "version": "0.3.3",
-  "description": "easy cli for jenkins",
+  "description": "Jenkins CI for people who like command-line",
   "repository": "raine/ez-jenkins",
   "preferGlobal": true,
   "keywords": [
