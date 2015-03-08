@@ -6,7 +6,7 @@ tail-build = require '../api/tail-build'
 get-all-jobs = require '../api/get-all-jobs'
 list-choice = require './list-choice'
 {sort-abc, die} = require '../utils'
-{filter, match: str-match, sort, is-empty} = require 'ramda'
+{filter, match: str-match, sort, is-empty, curry-n, map, prop, take} = require 'ramda'
 Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
 format-build-info = require './format-build-info'
@@ -39,14 +39,18 @@ format-tail-output = ->
 
     next!
 
-grep         = -> filter str-match new RegExp it, \i
-grep-jobs    = -> get-all-jobs! .then grep it
-suggest-jobs = async (job-name) ->*
-  debug 'suggest-jobs job-name=%s', job-name
-  jobs = yield grep-jobs job-name
+fuzzy = curry-n 2, (require \fuzzy .filter)
+grep-jobs = (str) ->
+  get-all-jobs!
+    .then fuzzy str
+    .then map prop \string
+
+suggest-jobs = async (str) ->*
+  debug 'suggest-jobs str=%s', str
+  jobs = yield grep-jobs str
   return Maybe
     .from-nullable (jobs unless is-empty jobs)
-    .map sort-abc
+    .map take 10
     .map (jobs) ->
       list-choice 'no such job, did you mean one of these?\n', jobs
 
