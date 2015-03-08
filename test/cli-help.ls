@@ -3,8 +3,8 @@ exec = require \child_process .exec
 require! util
 
 describe 'bin/jenkins' (,) ->
-  it 'displays help' async ->*
-    (,, stderr) <- exec './bin/jenkins'
+  it 'displays help' (done) ->
+    (,, stderr) <- exec './node_modules/.bin/lsc ./src/index.ls'
     stderr := strip-trailing stderr
 
     help =
@@ -17,3 +17,4 @@ describe 'bin/jenkins' (,) ->
       """
 
     eq help, stderr
+    done!
