@@ -1,5 +1,11 @@
 # ez-jenkins [![Build Status](https://travis-ci.org/raine/ez-jenkins.svg?branch=master)](https://travis-ci.org/raine/ez-jenkins) [![npm version](https://badge.fury.io/js/ez-jenkins.svg)](https://www.npmjs.com/package/ez-jenkins)
 
+<p align="right">
+  <a href="https://github.com/raine/ez-jenkins/blob/media/tail.gif">
+    <img align="right" width="198" height="135" src="https://github.com/raine/ez-jenkins/blob/media/tail-anim-small.gif">
+  </a>
+</p>
+
 > Jenkins CI for people who like command-line
 
 ```sh
