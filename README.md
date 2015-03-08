@@ -35,6 +35,18 @@ Usage: jenkins tail [options] <job-name>
 Options:
   -f, --follow  follow a job's build logs indefinitely (think tail -f)
   -b, --build   show output for a specific build
+
+Examples:
+  jenkins tail my-build -f
+  jenkins tail my-build -b 70
+```
+
+```
+$ jenkins configure -h
+Usage: jenkins configure <job-name>
+
+Examples:
+  jenkins configure my-build
 ```
 
 [![](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail.png)
