@@ -52,7 +52,7 @@ cli-tail = async (opts, second-time) ->*
           .pipe format-tail-output!
           .pipe process.stdout
       Nothing: async ->*
-        print-err = -> error job-name, build-number |> console.log
+        print-err = -> error job-name, build-number |> console.error
         return print-err! if second-time
 
         (yield fuzzy-filter-jobs job-name)
