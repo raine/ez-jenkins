@@ -11,6 +11,7 @@ list-choice = curry require './list-choice'
 Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
 format-build-info = require './format-build-info'
+fuzzy-filter-jobs = require '../api/fuzzy-filter-jobs'
 
 error = (job-name, build-number) ->
   str = 'unable to find job'
@@ -40,20 +41,6 @@ format-tail-output = ->
 
     next!
 
-fuzzy = curry-n 2, (require \fuzzy .filter)
-grep-jobs = (str) ->
-  get-all-jobs!
-    .then fuzzy str
-    .then map prop \string
-
-suggest-jobs = async (str) ->*
-  debug 'suggest-jobs str=%s', str
-  jobs = yield grep-jobs str
-  return Maybe
-    .from-nullable (jobs unless is-empty jobs)
-    .map take 10
-    .map list-choice 'no such job, did you mean one of these?\n'
-
 cli-tail = async (opts, second-time) ->*
   {job-name, build-number, follow} = opts
 
@@ -68,11 +55,12 @@ cli-tail = async (opts, second-time) ->*
         print-err = -> error job-name, build-number |> console.log
         return print-err! if second-time
 
-        new-job = yield suggest-jobs job-name
-        new-job.cata do
-          Just: (job-name) ->
-            cli-tail {job-name, build-number, follow}, true
-          Nothing: print-err
+        (yield fuzzy-filter-jobs job-name)
+          .map list-choice 'no such job, did you mean one of these?\n'
+          .cata do
+            Just: (job-name) ->
+              cli-tail {job-name, build-number, follow}, true
+            Nothing: print-err
   catch
     die e
 
