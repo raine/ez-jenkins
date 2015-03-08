@@ -20,7 +20,7 @@ my-nock = ->
 describe 'get-build' (,) ->
   after-each -> nock.clean-all!
 
-  it 'gets build as Just if found' async ->*
+  it 'gets Just if found' async ->*
     my-nock!.reply 200, JSON_DATA
 
     build = yield get-build \test-job-1234, 30
