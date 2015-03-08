@@ -6,8 +6,9 @@ module.exports = (argv) ->
 
   command = yargs
     .usage 'Usage: jenkins <command> [options]'
-    .command \tail,  'read build logs'
-    .command \setup, 'interactively configure jenkins base url'
+    .command \tail,      'read build logs'
+    .command \configure, 'open configure view in browser for a job'
+    .command \setup,     'interactively configure jenkins base url'
     .parse argv ._.0
 
   parsed-argv = switch command
@@ -24,6 +25,13 @@ module.exports = (argv) ->
         alias       : \build-number
       .example 'jenkins tail my-build -f'
       .example 'jenkins tail my-build -b 70'
+      .help \h, 'show help'
+      .alias \h, \help
+      .parse argv
+  | \configure
+    yargs.reset!
+      .usage 'Usage: jenkins configure <job-name>'
+      .example 'jenkins configure my-build'
       .help \h, 'show help'
       .alias \h, \help
       .parse argv
