@@ -2,11 +2,15 @@ require! sinon
 require! proxyquire
 
 {called-with, called-with-exactly} = sinon.assert
-tail = sinon.spy!
-setup = sinon.spy!
+
+tail      = sinon.spy!
+setup     = sinon.spy!
+configure = sinon.spy!
+
 cli = proxyquire '../src/cli/',
-  './tail': tail
-  './setup': setup
+  './tail'      : tail
+  './setup'     : setup
+  './configure' : configure
 
 describe 'tail' (,) ->
   before-each -> tail.reset!
@@ -34,3 +38,11 @@ describe 'setup' (,) ->
   it 'is called with job name' ->
     cli <[ setup ]>
     called-with-exactly setup
+
+describe 'configure' (,) ->
+  before-each -> configure.reset!
+
+  it 'is called with job name' ->
+    cli <[ configure test-job-1234 ]>
+    called-with-exactly configure, sinon.match do
+      job-name: \test-job-1234

@@ -11,3 +11,7 @@ module.exports = (argv) ->
     require('./tail') {job-name, argv.build-number, argv.follow}
   | \setup
     require('./setup')!
+  | \configure
+    job-name = argv._.1
+    return yargs.show-help! unless job-name
+    require('./configure') {job-name}

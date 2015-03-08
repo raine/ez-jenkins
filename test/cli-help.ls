@@ -12,8 +12,9 @@ describe 'bin/jenkins' (,) ->
       Usage: jenkins <command> [options]
 
       Commands:
-        tail     read build logs
-        setup    interactively configure jenkins base url\n\n
+        tail         read build logs
+        configure    open configure view in browser for a job
+        setup        interactively configure jenkins base url\n\n
       """
 
     eq help, stderr
