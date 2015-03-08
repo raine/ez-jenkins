@@ -7,6 +7,8 @@ require! '../api/fuzzy-filter-jobs'
 require! open
 
 cli-configure = async (opts) ->*
+  debug opts, 'configure'
+
   (yield fuzzy-filter-jobs opts.job-name)
     .map list-choice 'no such job, did you mean one of these?\n'
     .cata do
