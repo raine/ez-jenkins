@@ -15,6 +15,6 @@ cli-configure = async (opts) ->*
       Just: (job-name) ->
         open format-url "/job/#job-name/configure"
       Nothing: ->
-        "unable to find job: #{opts.job-name}" |> console.error
+        "Unable to find job: #{opts.job-name}" |> console.error
 
 module.exports = cli-configure

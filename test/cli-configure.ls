@@ -41,4 +41,4 @@ describe 'cli-configure' (,) ->
 
     it 'shows an error without job matches' async ->*
       yield cli-configure job-name: \test-job-1000
-      called-with console.error, 'unable to find job: test-job-1000'
+      called-with console.error, 'Unable to find job: test-job-1000'

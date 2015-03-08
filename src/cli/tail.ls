@@ -14,7 +14,7 @@ format-build-info = require './format-build-info'
 fuzzy-filter-jobs = require '../api/fuzzy-filter-jobs'
 
 error = (job-name, build-number) ->
-  str = 'unable to find job'
+  str = 'Unable to find job'
   switch
   | build-number? => "#str or build: #job-name [##{build-number}]"
   | otherwise     => "#str: #job-name"
@@ -36,7 +36,7 @@ format-tail-output = ->
       debug chunk, 'chunk'
       switch chunk.event
       | \GOT_BUILD         => cur-build := chunk.build
-      | \WAITING_FOR_BUILD => push-line 'waiting for the next build...'
+      | \WAITING_FOR_BUILD => push-line 'Waiting for the next build...'
       | \BUILD_INFO        => push-line format-build-info chunk.build-info
 
     next!
@@ -56,7 +56,7 @@ cli-tail = async (opts, second-time) ->*
         return print-err! if second-time
 
         (yield fuzzy-filter-jobs job-name)
-          .map list-choice 'no such job, did you mean one of these?\n'
+          .map list-choice 'No such job, did you mean one of these?\n'
           .cata do
             Just: (job-name) ->
               cli-tail {job-name, build-number, follow}, true
