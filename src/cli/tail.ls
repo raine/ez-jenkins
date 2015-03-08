@@ -1,12 +1,13 @@
+{filter, is-empty, curry-n, map, prop, take, curry} = require 'ramda'
+
 {coroutine: async} = require \bluebird
 through = require 'through2'
 {cyan} = require \chalk
 yargs = require \yargs
 tail-build = require '../api/tail-build'
 get-all-jobs = require '../api/get-all-jobs'
-list-choice = require './list-choice'
 {sort-abc, die} = require '../utils'
-{filter, match: str-match, sort, is-empty} = require 'ramda'
+list-choice = curry require './list-choice'
 Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
 format-build-info = require './format-build-info'
@@ -39,16 +40,19 @@ format-tail-output = ->
 
     next!
 
-grep         = -> filter str-match new RegExp it, \i
-grep-jobs    = -> get-all-jobs! .then grep it
-suggest-jobs = async (job-name) ->*
-  debug 'suggest-jobs job-name=%s', job-name
-  jobs = yield grep-jobs job-name
+fuzzy = curry-n 2, (require \fuzzy .filter)
+grep-jobs = (str) ->
+  get-all-jobs!
+    .then fuzzy str
+    .then map prop \string
+
+suggest-jobs = async (str) ->*
+  debug 'suggest-jobs str=%s', str
+  jobs = yield grep-jobs str
   return Maybe
     .from-nullable (jobs unless is-empty jobs)
-    .map sort-abc
-    .map (jobs) ->
-      list-choice 'no such job, did you mean one of these?\n', jobs
+    .map take 10
+    .map list-choice 'no such job, did you mean one of these?\n'
 
 cli-tail = async (opts, second-time) ->*
   {job-name, build-number, follow} = opts

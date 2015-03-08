@@ -8,6 +8,8 @@ numbered-list   = (join '\n') . map-indexed option-to-entry
 module.exports = list-choice = (question, list) ->
   debug {question, list}
   throw new Error 'empty list' if is-empty list
+  if list.length is 1 then return list.0
+
   console.log question if question
   console.log numbered-list list
   num = readline-sync.prompt!

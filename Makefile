@@ -19,6 +19,9 @@ all: compile
 
 compile: $(LIB) package.json
 
+shrinkwrap: package.json
+	npm-shrinkwrap --dev
+
 install: clean all
 	npm install -g .
 
