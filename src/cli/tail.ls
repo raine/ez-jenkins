@@ -1,17 +1,17 @@
-{filter, is-empty, curry-n, map, prop, take, curry} = require 'ramda'
+{curry} = require 'ramda'
 
 {coroutine: async} = require \bluebird
-through = require 'through2'
-{cyan} = require \chalk
-yargs = require \yargs
-tail-build = require '../api/tail-build'
-get-all-jobs = require '../api/get-all-jobs'
-{sort-abc, die} = require '../utils'
-list-choice = curry require './list-choice'
-Maybe = require 'data.maybe'
-debug = require '../debug' <| __filename
-format-build-info = require './format-build-info'
-fuzzy-filter-jobs = require '../api/fuzzy-filter-jobs'
+through            = require 'through2'
+{cyan}             = require \chalk
+yargs              = require \yargs
+tail-build         = require '../api/tail-build'
+get-all-jobs       = require '../api/get-all-jobs'
+{sort-abc, die}    = require '../utils'
+list-choice        = curry require './list-choice'
+Maybe              = require 'data.maybe'
+debug              = require '../debug' <| __filename
+format-build-info  = require './format-build-info'
+fuzzy-filter-jobs  = require '../api/fuzzy-filter-jobs'
 
 error = (job-name, build-number) ->
   str = 'unable to find job'
