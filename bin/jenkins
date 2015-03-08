@@ -1,8 +1,15 @@
 #!/bin/sh
 ":" //# comment; exec /usr/bin/env node --harmony "$0" "$@"
 
+var generators;
+try {
+  eval('(function* () {})()');
+  generators = true;
+} catch (e) {
+  generators = false;
+}
+
 var name = require('../package.json').name;
-var generators = require('generator-supported');
 if (generators) {
   require('../lib');
 } else {

@@ -56,10 +56,6 @@
       "version": "0.1.0",
       "resolved": "https://registry.npmjs.org/fuzzy/-/fuzzy-0.1.0.tgz"
     },
-    "generator-supported": {
-      "version": "0.0.1",
-      "resolved": "https://registry.npmjs.org/generator-supported/-/generator-supported-0.0.1.tgz"
-    },
     "get-stdin": {
       "version": "4.0.1",
       "resolved": "https://registry.npmjs.org/get-stdin/-/get-stdin-4.0.1.tgz"

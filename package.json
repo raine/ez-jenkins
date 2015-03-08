@@ -32,7 +32,6 @@
     "data.maybe": "^1.2.0",
     "debug": "^2.1.1",
     "fuzzy": "^0.1.0",
-    "generator-supported": "0.0.1",
     "js-yaml": "^3.2.7",
     "mkdirp": "^0.5.0",
     "pretty-ms": "^1.0.1",
