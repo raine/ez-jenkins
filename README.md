@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> Jenkins CI for people who like command-line
+> cli for jenkins ci
 
 ```sh
 npm install -g ez-jenkins
