@@ -30,7 +30,6 @@ Commands:
   setup        interactively configure jenkins base url
 ```
 
-
 ### tail
 
 ```
