@@ -38,7 +38,7 @@
     "ramda": "^0.10.0",
     "readline-sync": "^0.7.3",
     "request": "^2.53.0",
-    "split": "^0.3.3",
+    "split2": "^0.2.1",
     "strftime": "^0.8.4",
     "through2": "^0.6.3",
     "yargs": "^3.4.4"

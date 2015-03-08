@@ -6,7 +6,7 @@ require! {
   bluebird: Promise
   stream: { Readable }
   through2: through
-  split,
+  split2,
   'data.maybe': Maybe
 }
 
@@ -56,7 +56,7 @@ tail-build = (job-name, build-number) ->
         reading := true
         get-next-chunk start
 
-  log-stream .pipe split!
+  log-stream .pipe split2!
 
 wait-for-build = async (job-name, build-number) ->*
   debug 'wait-for-build job-name=%s build-number=%d', job-name, build-number
