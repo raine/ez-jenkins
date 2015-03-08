@@ -14,15 +14,15 @@ jenkins setup
 jenkins tail <job-name>
 ```
 
-## requirements
-
-- node `>= v0.11.3`
-
 ## features
 
 - **`tail`** a job for output indefinitely
 - open job configuration view in browser with **`configure`**
 - fuzzy search: provides suggestions when a job name provides no exact match
+
+## requirements
+
+- node `>= v0.11.3`
 
 ## usage
 
