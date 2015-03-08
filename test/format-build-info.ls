@@ -1,4 +1,4 @@
-{strip-trailing, str-contains, sinon} = require './test-util'
+{strip-trailing, sinon} = require './test-util'
 require! '../src/cli/format-build-info'
 require! \pretty-ms
 require! strftime
