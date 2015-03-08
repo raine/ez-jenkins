@@ -4,7 +4,7 @@ SRC = $(shell find src -name "*.ls" -type f | sort)
 LIB = $(patsubst src/%.ls, lib/%.js, $(SRC))
 
 MOCHA = ./node_modules/.bin/mocha
-LSC = node_modules/.bin/lsc
+LSC = ./node_modules/.bin/lsc
 NAME = $(shell node -e "console.log(require('./package.json').name)")
 
 default: all
