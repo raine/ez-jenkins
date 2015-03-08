@@ -13,7 +13,7 @@ describe 'bin/jenkins' (,) ->
 
       Commands:
         tail         read build logs
-        configure    open configure view in browser for a job
+        configure    open job configuration view in browser
         setup        interactively configure jenkins base url\n\n
       """
 

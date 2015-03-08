@@ -7,7 +7,7 @@ module.exports = (argv) ->
   command = yargs
     .usage 'Usage: jenkins <command> [options]'
     .command \tail,      'read build logs'
-    .command \configure, 'open configure view in browser for a job'
+    .command \configure, 'open job configuration view in browser'
     .command \setup,     'interactively configure jenkins base url'
     .parse argv ._.0
 
