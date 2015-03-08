@@ -30,6 +30,9 @@ Commands:
   setup        interactively configure jenkins base url
 ```
 
+
+### tail
+
 ```
 $ jenkins tail -h
 Usage: jenkins tail [options] <job-name>
@@ -42,6 +45,8 @@ Examples:
   jenkins tail my-build -f
   jenkins tail my-build -b 70
 ```
+
+### configure
 
 ```
 $ jenkins configure -h
