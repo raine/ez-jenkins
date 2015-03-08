@@ -14,8 +14,8 @@ jenkins tail <job-name>
 
 ## features
 
-- `tail` a job for output indefinitely
-- open job configuration view in browser with `configure`
+- **`tail`** a job for output indefinitely
+- open job configuration view in browser with **`configure`**
 - fuzzy search: provides suggestions when a job name provides no exact match
 
 ## usage
