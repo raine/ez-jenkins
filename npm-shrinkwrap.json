@@ -94,6 +94,10 @@
         }
       }
     },
+    "open": {
+      "version": "0.0.5",
+      "resolved": "https://registry.npmjs.org/open/-/open-0.0.5.tgz"
+    },
     "pretty-ms": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/pretty-ms/-/pretty-ms-1.0.1.tgz",
