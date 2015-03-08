@@ -61,4 +61,4 @@ Examples:
   jenkins configure my-build
 ```
 
-[![](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/tail.png)
+[![](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build.png)
