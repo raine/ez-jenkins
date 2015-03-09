@@ -1,6 +1,7 @@
 yargs = require \yargs
 debug = require '../debug' <| __filename
 
+# TODO: clean up help calls with new yargs version
 module.exports = (argv) ->
   debug argv
 
