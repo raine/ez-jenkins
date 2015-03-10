@@ -83,13 +83,14 @@ recur-tail = (output, follow, build) !-->
                    else   yield get-build build.job-name, build.number
       build-info.chain (build-info) ->
         output.write merge {build-info}, event: \BUILD_INFO
+        output.end! unless follow
 
       if follow
         output.write event: \WAITING_FOR_BUILD
         next-build = yield wait-for-build build.job-name, build.number + 1
         recur next-build
 
-    .pipe output, end: !follow
+    .pipe output, end: false
 
 module.exports = async (job-name, build-number, follow) ->*
   debug 'tail job-name=%s build-number=%d follow=%s', job-name, build-number, follow
