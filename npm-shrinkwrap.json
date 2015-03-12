@@ -287,8 +287,8 @@
       }
     },
     "yargs": {
-      "version": "3.5.3",
-      "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.5.3.tgz",
+      "version": "3.5.4",
+      "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.5.4.tgz",
       "dependencies": {
         "camelcase": {
           "version": "1.0.2",
