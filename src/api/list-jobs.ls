@@ -10,7 +10,7 @@ debug = require '../debug' <| __filename
 
 module.exports = ->
   debug 'req start'
-  tree = "jobs[lastBuild[#{BUILD_KEYS}]]"
+  tree = "jobs[name,lastBuild[#{BUILD_KEYS}]]"
   request {
     url: format-url "/api/json"
     qs: {tree}
