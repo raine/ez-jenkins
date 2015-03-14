@@ -14,4 +14,3 @@ module.exports = get-all-jobs = ->
   .tap -> debug 'req done'
   .get \1
   .then (map prop \name) . prop \jobs
-  .tap debug
