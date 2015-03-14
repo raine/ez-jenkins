@@ -11,10 +11,9 @@ fuzzy-filter-jobs = async (pattern) ->*
     .then fuzzy pattern
     .then map prop \string
 
-  # return Maybe.Nothing! if is-empty
-
-  return Maybe
-    .from-nullable (jobs unless is-empty jobs)
-    .map take 10
+  return if is-empty jobs
+    Maybe.Nothing!
+  else
+    Maybe.of jobs .map take 10
 
 module.exports = fuzzy-filter-jobs
