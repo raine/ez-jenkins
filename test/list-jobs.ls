@@ -9,7 +9,7 @@ JSON_DATA = require './data/list-jobs.json'
 _nock = ->
   nock JENKINS_URL
     .get '/api/json?' +
-      qs tree: 'lastBuild[building,timestamp,estimatedDuration,duration,result,number]'
+      qs tree: 'jobs[lastBuild[building,timestamp,estimatedDuration,duration,result,number]]'
 
 describe 'list-jobs' (,) ->
   after-each -> nock.clean-all!

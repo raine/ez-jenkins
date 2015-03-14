@@ -9,13 +9,14 @@ request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 
 module.exports = ->
-  debug 'start'
-  tree = "lastBuild[#{BUILD_KEYS}]"
+  debug 'req start'
+  tree = "jobs[lastBuild[#{BUILD_KEYS}]]"
   request {
     url: format-url "/api/json"
     qs: {tree}
     +json
   }
+  .tap -> debug 'req done'
   .get \1
   .then pipe do
     prop \jobs
