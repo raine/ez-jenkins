@@ -38,6 +38,16 @@
         }
       }
     },
+    "cli-table": {
+      "version": "0.3.1",
+      "resolved": "https://registry.npmjs.org/cli-table/-/cli-table-0.3.1.tgz",
+      "dependencies": {
+        "colors": {
+          "version": "1.0.3",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.0.3.tgz"
+        }
+      }
+    },
     "data.maybe": {
       "version": "1.2.0",
       "resolved": "https://registry.npmjs.org/data.maybe/-/data.maybe-1.2.0.tgz"

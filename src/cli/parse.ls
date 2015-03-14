@@ -6,6 +6,7 @@ module.exports = (argv) ->
 
   command = yargs.reset!
     .usage 'Usage: jenkins <command> [options]'
+    .command \list,      'list builds'
     .command \tail,      'read build logs'
     .command \configure, 'open job configuration view in browser'
     .command \setup,     'interactively configure jenkins base url'
@@ -13,6 +14,14 @@ module.exports = (argv) ->
     .parse argv ._.0
 
   parsed-argv = switch command
+  | \list
+    yargs.reset!
+      .usage 'Usage: jenkins list [options] <pattern>'
+      .demand 2, null
+      .example 'jenkins list my-build'
+      .help \h, 'show help'
+      .alias \h, \help
+      .parse argv
   | \tail
     yargs.reset!
       .usage 'Usage: jenkins tail [options] <job-name>'

@@ -1,7 +1,7 @@
 config = require '../config'
 debug  = require '../debug' <| __filename
 
-export format-url = (path) ->
+module.exports = (path) ->
   base-url = config.get \url .replace // /?$ //, ''
   url = base-url + path
   debug url
