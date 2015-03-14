@@ -13,4 +13,4 @@ module.exports =
   qs         : require \querystring .stringify
   util       : require \util
 
-module.exports <<< {strip-trailing, unlines}
+module.exports <<< {strip-trailing}
