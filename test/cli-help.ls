@@ -1,6 +1,8 @@
-{async, strip-trailing} = require './test-util'
-exec = require \child_process .exec
-require! util
+{async, strip-trailing, unlines} = require './test-util'
+require! child_process: {exec}
+require! ramda: {head}
+
+first-line = head . unlines
 
 describe 'bin/jenkins' (,) ->
   it 'displays help' (done) ->
@@ -18,4 +20,10 @@ describe 'bin/jenkins' (,) ->
       """
 
     eq help, stderr
+    done!
+
+describe 'tail' (,) ->
+  it 'shows help if not called with at least one argument' (done) ->
+    (,, stderr) <- exec './node_modules/.bin/lsc ./src/index.ls tail'
+    eq 'Usage: jenkins tail [options] <job-name>', first-line stderr
     done!
