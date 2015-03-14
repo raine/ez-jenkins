@@ -3,6 +3,7 @@ require! proxyquire
 
 {called-with, called-with-exactly} = sinon.assert
 
+list      = sinon.spy!
 tail      = sinon.spy!
 setup     = sinon.spy!
 configure = sinon.spy!
@@ -11,6 +12,15 @@ cli = proxyquire '../src/cli/',
   './tail'      : tail
   './setup'     : setup
   './configure' : configure
+  './list'      : list
+
+describe 'test' (,) ->
+  before-each -> list.reset!
+
+  it 'is called with pattern' ->
+    cli <[ list hello ]>
+    called-with list, sinon.match do
+      pattern: \hello
 
 describe 'tail' (,) ->
   before-each -> tail.reset!
