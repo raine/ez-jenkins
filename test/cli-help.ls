@@ -4,7 +4,7 @@ require! util
 
 describe 'bin/jenkins' (,) ->
   it 'displays help' (done) ->
-    (,, stderr) <- exec './node_modules/.bin/lsc ./src/index.ls'
+    (,, stderr) <- exec 'DEBUG=0 ./node_modules/.bin/lsc ./src/index.ls'
     stderr := strip-trailing stderr
 
     help =
