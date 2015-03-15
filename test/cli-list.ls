@@ -13,6 +13,9 @@ describe 'cli-list' (,) ->
   after-each ->
     sandbox.restore!
 
+  describe 'with job matches' (,) ->
+    it 'shows table output'
+
   describe 'without job matches' (,) ->
     before ->
       cli-list := proxyquire '../src/cli/list',
