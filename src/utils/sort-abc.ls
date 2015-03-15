@@ -1,6 +1,6 @@
 {sort} = require 'ramda'
 
-export sort-abc = sort (a, b) ->
+module.exports = sort (a, b) ->
   switch
   | a < b => -1
   | a > b => 1

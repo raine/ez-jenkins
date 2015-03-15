@@ -11,7 +11,7 @@ list-choice = curry require './list-choice'
 Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
 format-build-info = require './format-build-info'
-fuzzy-filter-jobs = require '../api/fuzzy-filter-jobs'
+{fuzzy-filter, format-jobs-table} = require '../utils'
 
 error = (job-name, build-number) ->
   str = 'Unable to find job'
@@ -55,7 +55,7 @@ cli-tail = async (opts, second-time) ->*
         print-err = -> error job-name, build-number |> console.error
         return print-err! if second-time
 
-        (yield fuzzy-filter-jobs job-name)
+        (fuzzy-filter job-name, yield get-all-jobs!)
           .map list-choice 'No such job, did you mean one of these?\n'
           .cata do
             Just: (job-name) ->

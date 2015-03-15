@@ -1,0 +1,26 @@
+{
+    "jobs": [
+        {
+            "lastBuild": {
+                "building": false,
+                "duration": 62,
+                "estimatedDuration": 49,
+                "number": 133,
+                "result": "SUCCESS",
+                "timestamp": 1344503360000
+            },
+            "name": "foo-1"
+        },
+        {
+            "lastBuild": {
+                "building": false,
+                "duration": 1168836,
+                "estimatedDuration": 1154187,
+                "number": 139,
+                "result": "SUCCESS",
+                "timestamp": 1344503365000
+            },
+            "name": "foo-2"
+        }
+    ]
+}

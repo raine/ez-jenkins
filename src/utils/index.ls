@@ -1,14 +1,19 @@
-require! chalk
-require! ramda: {reduce}
+require! chalk: {red}
+require! ramda: {reduce, map, tap}
 merge = (xs) -> reduce (<<<), {}, xs
+require-obj = (obj) ->
+  {[k, require v] for k, v of obj}
 
 die = (err) ->
-  console.error chalk.red err.to-string!
+  console.error red err.to-string!
   process.exit 1
 
 module.exports = merge [
-  require './sort-abc'
-  require './format-url'
-  require './format-url'
+  require-obj do
+    sort-abc           : './sort-abc'
+    format-url         : './format-url'
+    build-result-color : './build-result-color'
+  require './jobs-table'
+  require './fuzzy-filter'
   {die}
 ]

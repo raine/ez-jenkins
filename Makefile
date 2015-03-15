@@ -6,6 +6,7 @@ LIB = $(patsubst src/%.ls, lib/%.js, $(SRC))
 MOCHA = ./node_modules/.bin/mocha
 LSC = ./node_modules/.bin/lsc
 NAME = $(shell node -e "console.log(require('./package.json').name)")
+REPORTER ?= spec
 
 default: all
 
@@ -43,10 +44,10 @@ publish: all test
 	npm publish
 
 test:
-	@$(MOCHA) --harmony-generators
+	@$(MOCHA) --harmony-generators --reporter $(REPORTER)
 
 test-watch:
-	@$(MOCHA) --watch --harmony-generators
+	@$(MOCHA) --watch --harmony-generators --reporter min
 
 prepublish:
 	@if [ -z "$$TRAVIS" -a -e lib/index.js ]; then \

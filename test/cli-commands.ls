@@ -3,6 +3,7 @@ require! proxyquire
 
 {called-with, called-with-exactly} = sinon.assert
 
+list      = sinon.spy!
 tail      = sinon.spy!
 setup     = sinon.spy!
 configure = sinon.spy!
@@ -11,6 +12,15 @@ cli = proxyquire '../src/cli/',
   './tail'      : tail
   './setup'     : setup
   './configure' : configure
+  './list'      : list
+
+describe 'list' (,) ->
+  before-each -> list.reset!
+
+  it 'is called with args concatted' ->
+    cli <[ list foo bar ]>
+    called-with list, sinon.match do
+      input: \foobar
 
 describe 'tail' (,) ->
   before-each -> tail.reset!

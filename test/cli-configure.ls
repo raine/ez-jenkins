@@ -24,16 +24,16 @@ describe 'cli-configure' (,) ->
   describe 'with job matches' (,) ->
     before ->
       cli-configure := proxyquire '../src/cli/configure', merge proxyquire-defaults,
-        '../api/fuzzy-filter-jobs': -> Promise.resolve Maybe.of <[ test-job-1234 ]>
+        '../api/get-all-jobs': -> Promise.resolve <[ test-job-1234 ]>
 
     it 'opens url in browser' async ->*
-      yield cli-configure <[ whatever ]>
+      yield cli-configure job-name: \test-job-1234
       called-with-exactly open, JENKINS_URL + '/job/test-job-1234/configure'
 
   describe 'without job matches' (,) ->
     before ->
       cli-configure := proxyquire '../src/cli/configure', merge proxyquire-defaults,
-        '../api/fuzzy-filter-jobs': -> Promise.resolve Maybe.Nothing!
+        '../api/get-all-jobs': -> Promise.resolve []
 
     it "doesn't open browser" async ->*
       yield cli-configure job-name: \test-job-1234

@@ -38,6 +38,16 @@
         }
       }
     },
+    "cli-table": {
+      "version": "0.3.1",
+      "resolved": "https://registry.npmjs.org/cli-table/-/cli-table-0.3.1.tgz",
+      "dependencies": {
+        "colors": {
+          "version": "1.0.3",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.0.3.tgz"
+        }
+      }
+    },
     "data.maybe": {
       "version": "1.2.0",
       "resolved": "https://registry.npmjs.org/data.maybe/-/data.maybe-1.2.0.tgz"
@@ -99,8 +109,8 @@
       "resolved": "https://registry.npmjs.org/open/-/open-0.0.5.tgz"
     },
     "pretty-ms": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/pretty-ms/-/pretty-ms-1.0.1.tgz",
+      "version": "1.1.0",
+      "resolved": "https://registry.npmjs.org/pretty-ms/-/pretty-ms-1.1.0.tgz",
       "dependencies": {
         "parse-ms": {
           "version": "1.0.0",
@@ -109,8 +119,8 @@
       }
     },
     "ramda": {
-      "version": "0.10.0",
-      "resolved": "https://registry.npmjs.org/ramda/-/ramda-0.10.0.tgz"
+      "version": "0.11.0",
+      "resolved": "https://registry.npmjs.org/ramda/-/ramda-0.11.0.tgz"
     },
     "readable-stream": {
       "version": "1.0.33",
@@ -287,8 +297,8 @@
       }
     },
     "yargs": {
-      "version": "3.4.5",
-      "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.4.5.tgz",
+      "version": "3.5.4",
+      "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.5.4.tgz",
       "dependencies": {
         "camelcase": {
           "version": "1.0.2",

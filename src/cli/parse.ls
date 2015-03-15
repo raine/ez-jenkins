@@ -1,21 +1,32 @@
 yargs = require \yargs
 debug = require '../debug' <| __filename
 
-# TODO: clean up help calls with new yargs version
 module.exports = (argv) ->
   debug argv
 
-  command = yargs
+  command = yargs.reset!
     .usage 'Usage: jenkins <command> [options]'
+    .command \list,      'list builds'
     .command \tail,      'read build logs'
     .command \configure, 'open job configuration view in browser'
     .command \setup,     'interactively configure jenkins base url'
+    .demand 1, null
     .parse argv ._.0
 
   parsed-argv = switch command
+  | \list
+    yargs.reset!
+      .usage 'Usage: jenkins list [options] [<pattern>]'
+      .demand 1, null
+      .example 'jenkins list'
+      .example 'jenkins list my-build'
+      .help \h, 'show help'
+      .alias \h, \help
+      .parse argv
   | \tail
     yargs.reset!
       .usage 'Usage: jenkins tail [options] <job-name>'
+      .demand 2, null
       .option \f,
         type        : \boolean
         description : "follow a job's build logs indefinitely (think tail -f)"
@@ -32,15 +43,16 @@ module.exports = (argv) ->
   | \configure
     yargs.reset!
       .usage 'Usage: jenkins configure <job-name>'
+      .demand 2, null
       .example 'jenkins configure my-build'
       .help \h, 'show help'
       .alias \h, \help
       .parse argv
   | \setup
-    yargs
+    yargs.reset!
       .help \h, 'show help'
       .alias \h, \help
-      .argv
+      .parse argv
   | otherwise
     debug 'no command matched, showing help'
     yargs.show-help!

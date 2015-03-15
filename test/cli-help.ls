@@ -4,7 +4,9 @@ require! util
 
 describe 'bin/jenkins' (,) ->
   it 'displays help' (done) ->
-    (,, stderr) <- exec './node_modules/.bin/lsc ./src/index.ls'
+    # TODO: slow as hell, figure out a way to capture process.stderr without
+    # spawning a new process
+    (,, stderr) <- exec 'DEBUG=0 ./node_modules/.bin/lsc ./src/index.ls'
     stderr := strip-trailing stderr
 
     help =
@@ -12,6 +14,7 @@ describe 'bin/jenkins' (,) ->
       Usage: jenkins <command> [options]
 
       Commands:
+        list         list builds
         tail         read build logs
         configure    open job configuration view in browser
         setup        interactively configure jenkins base url\n\n
