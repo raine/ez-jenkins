@@ -6,7 +6,7 @@ debug = require '../debug' <| __filename
 fuzzy-by-name = fuzzy-filter-prop \jobName
 
 cli-list = async (opts) ->*
-  jobs = fuzzy-by-name opts.pattern, yield list-jobs!
+  jobs = fuzzy-by-name opts.input, yield list-jobs!
   console.log format-jobs-table jobs
 
 module.exports = cli-list

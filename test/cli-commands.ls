@@ -14,13 +14,13 @@ cli = proxyquire '../src/cli/',
   './configure' : configure
   './list'      : list
 
-describe 'test' (,) ->
+describe 'list' (,) ->
   before-each -> list.reset!
 
-  it 'is called with pattern' ->
-    cli <[ list hello ]>
+  it 'is called with args concatted' ->
+    cli <[ list foo bar ]>
     called-with list, sinon.match do
-      pattern: \hello
+      input: \foobar
 
 describe 'tail' (,) ->
   before-each -> tail.reset!

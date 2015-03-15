@@ -16,8 +16,9 @@ module.exports = (argv) ->
   parsed-argv = switch command
   | \list
     yargs.reset!
-      .usage 'Usage: jenkins list [options] <pattern>'
-      .demand 2, null
+      .usage 'Usage: jenkins list [options] [<pattern>]'
+      .demand 1, null
+      .example 'jenkins list'
       .example 'jenkins list my-build'
       .help \h, 'show help'
       .alias \h, \help
