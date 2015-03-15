@@ -14,7 +14,7 @@ describe 'bin/jenkins' (,) ->
       Usage: jenkins <command> [options]
 
       Commands:
-        list         list builds
+        list         list jobs
         tail         read build logs
         configure    open job configuration view in browser
         setup        interactively configure jenkins base url\n\n

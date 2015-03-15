@@ -6,7 +6,7 @@ module.exports = (argv) ->
 
   command = yargs.reset!
     .usage 'Usage: jenkins <command> [options]'
-    .command \list,      'list builds'
+    .command \list,      'list jobs'
     .command \tail,      'read build logs'
     .command \configure, 'open job configuration view in browser'
     .command \setup,     'interactively configure jenkins base url'
