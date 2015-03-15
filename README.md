@@ -11,11 +11,13 @@
 ```sh
 npm install -g ez-jenkins
 jenkins setup
+jenkins list <pattern>
 jenkins tail <job-name>
 ```
 
 ## features
 
+- **`list`** jobs in a table
 - **`tail`** a job for output indefinitely
 - open job configuration view in browser with **`configure`**
 - fuzzy search: provides suggestions when a job name provides no exact match
@@ -31,34 +33,10 @@ $ jenkins
 Usage: jenkins <command> [options]
 
 Commands:
+  list         list jobs
   tail         read build logs
   configure    open configure view in browser for a job
   setup        interactively configure jenkins base url
-```
-
-### tail
-
-```
-$ jenkins tail -h
-Usage: jenkins tail [options] <job-name>
-
-Options:
-  -f, --follow  follow a job's build logs indefinitely (think tail -f)
-  -b, --build   show output for a specific build
-
-Examples:
-  jenkins tail my-build -f
-  jenkins tail my-build -b 70
-```
-
-### configure
-
-```
-$ jenkins configure -h
-Usage: jenkins configure <job-name>
-
-Examples:
-  jenkins configure my-build
 ```
 
 [![](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build.png)
