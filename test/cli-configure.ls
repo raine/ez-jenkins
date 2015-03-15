@@ -39,6 +39,6 @@ describe 'cli-configure' (,) ->
       yield cli-configure job-name: \test-job-1234
       not-called open
 
-    it 'shows an error without job matches' async ->*
+    it 'shows an error' async ->*
       yield cli-configure job-name: \test-job-1000
       called-with console.error, 'Unable to find job: test-job-1000'
