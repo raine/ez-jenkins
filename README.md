@@ -39,4 +39,8 @@ Commands:
   setup        interactively configure jenkins base url
 ```
 
+## screenshots
+
 [![](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build.png)
+
+[![](https://raw.githubusercontent.com/raine/ez-jenkins/media/list-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/list.png)
