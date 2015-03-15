@@ -1,14 +1,10 @@
 {nock, proxyquire, async, qs, sinon} = require './test-util'
 require! bluebird: Promise
 require! 'data.maybe': Maybe
-{merge} = require 'ramda'
 {called-with, called-with-exactly, not-called} = sinon.assert
 
 var cli-tail
 var sandbox
-
-proxyquire-defaults =
-  '../utils': { '@global': true, format-url: fake-format-url }
 
 describe 'cli-tail' (,) ->
   before-each ->
@@ -24,7 +20,7 @@ describe 'cli-tail' (,) ->
 
   describe 'without job matches' (,) ->
     it 'shows an error' async ->*
-      cli-tail := proxyquire '../src/cli/tail', merge proxyquire-defaults,
+      cli-tail := proxyquire '../src/cli/tail',
         '../api/tail-build'   : -> Promise.resolve Maybe.Nothing!
         '../api/get-all-jobs' : -> Promise.resolve []
 

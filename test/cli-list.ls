@@ -1,6 +1,5 @@
 {nock, proxyquire, async, qs, sinon} = require './test-util'
 require! bluebird: Promise
-require! ramda: {merge}
 {called-with, called-with-exactly, not-called} = sinon.assert
 
 var cli-list
