@@ -4,6 +4,8 @@ require! util
 
 describe 'bin/jenkins' (,) ->
   it 'displays help' (done) ->
+    # TODO: slow as hell, figure out a way to capture process.stderr without
+    # spawning a new process
     (,, stderr) <- exec 'DEBUG=0 ./node_modules/.bin/lsc ./src/index.ls'
     stderr := strip-trailing stderr
 
