@@ -12,7 +12,8 @@ module.exports = merge [
   require-obj do
     sort-abc           : './sort-abc'
     format-url         : './format-url'
-    fuzzy-filter-prop  : './fuzzy-filter-prop'
     build-result-color : './build-result-color'
   require './jobs-table'
+  require './fuzzy-filter'
+  {die}
 ]

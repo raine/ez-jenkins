@@ -2,14 +2,15 @@
 {coroutine: async} = require \bluebird
 debug = require '../debug' <| __filename
 list-choice = curry require './list-choice'
+get-all-jobs = require '../api/get-all-jobs'
 {format-url} = require '../utils'
-require! '../api/fuzzy-filter-jobs'
+{fuzzy-filter, format-jobs-table} = require '../utils'
 require! open
 
 cli-configure = async (opts) ->*
   debug opts, 'configure'
 
-  (yield fuzzy-filter-jobs opts.job-name)
+  (fuzzy-filter opts.job-name, yield get-all-jobs!)
     .map list-choice 'no such job, did you mean one of these?\n'
     .cata do
       Just: (job-name) ->
