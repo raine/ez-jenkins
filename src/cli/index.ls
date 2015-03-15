@@ -13,10 +13,8 @@ module.exports = (argv) ->
   | \list
     require './list' <| {input: args}
   | \tail
-    job-name = argv._.1
-    require './tail' <| {job-name, argv.build-number, argv.follow}
+    require './tail' <| {job-name: args, argv.build-number, argv.follow}
   | \setup
     (require './setup')!
   | \configure
-    job-name = argv._.1
-    require './configure' <| {job-name}
+    require './configure' <| {job-name: args}
