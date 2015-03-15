@@ -1,9 +1,11 @@
 require! yargs
 require! './parse'
-require! ramda: {join}
+require! ramda: {is-empty, join}
 
 concat-args = (argv) ->
-  join '', argv._.slice 1
+  args = argv._.slice 1
+  unless is-empty args
+    join '', args
 
 module.exports = (argv) ->
   {command, argv} = parse argv

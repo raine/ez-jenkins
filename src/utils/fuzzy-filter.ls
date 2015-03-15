@@ -6,7 +6,6 @@ export fuzzy-filter-prop = (property, pattern, list) -->
   # if more than n, could get only the ones with top score
   fuzzy pattern, list, extract: prop property
   |> map prop \original
-  |> take 10
 
 export fuzzy-filter = (pattern, list) -->
   filtered = map (prop \string), fuzzy pattern, list
