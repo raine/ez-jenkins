@@ -17,7 +17,7 @@ cli = proxyquire '../src/cli/',
 describe 'list' (,) ->
   before-each -> list.reset!
 
-  it 'is called with args concatted' ->
+  it 'is called with args concatted as input' ->
     cli <[ list foo bar ]>
     called-with list, sinon.match do
       input: \foobar
