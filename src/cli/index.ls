@@ -7,6 +7,8 @@ concat-args = (argv) ->
   unless is-empty args
     join '', args
 
+# TODO: see if args parsing could be moved to parse.ls so that we could just
+#       pass the object here
 module.exports = (argv) ->
   {command, argv} = parse argv
   args = concat-args argv
