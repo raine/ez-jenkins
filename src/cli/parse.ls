@@ -20,6 +20,7 @@ module.exports = (argv) ->
       .demand 1, null
       .example 'jenkins list'
       .example 'jenkins list my-build'
+      .epilogue 'pattern can be a regex or fuzzily matching string'
       .help \h, 'show help'
       .alias \h, \help
       .parse argv
