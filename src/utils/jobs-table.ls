@@ -33,7 +33,7 @@ format-activity = (obj) ->
     duration = Date.now! - obj.timestamp
     progress = duration / obj.estimated-duration
     overdue = duration > obj.estimated-duration
-    postfix = if overdue then '+ zzz...' else ''
+    postfix = if overdue then '+' else ''
     str = "building (#{pct progress}#postfix)"
 
     char-progress = (limit-to str.length) Math.round progress * str.length
