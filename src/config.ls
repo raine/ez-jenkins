@@ -5,7 +5,7 @@ mkdirp = require 'mkdirp'
 
 debug = require './debug' <| __filename
 home = process.env.HOME
-export config-path = path.join home, \.config, \jenkins, \config.yaml
+export config-path = path.join home, \.config, \ez-jenkins, \config.yaml
 debug config-path
 
 safe-read = (path) ->
