@@ -54,7 +54,7 @@ export format-jobs-table = (jobs) ->
   HEAD = <[ # job activity ]>
   ROWS = <[ number jobName activity ]>
 
-  table = new Table head: HEAD, style: { head: [] }
+  table = new Table head: HEAD, style: { head: <[cyan bold]> }
   rows  = map ((pick-props ROWS) . format-row-obj), jobs
 
   for-each table~push, rows
