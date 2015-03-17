@@ -51,7 +51,7 @@ describe 'format-row-obj' (,) ->
       eq \never, prop \activity, format-row-obj job-name: \foo
 
     it 'is time ago str if not building' ->
-      eq '~1m ago', prop \activity, format-row-obj do
+      eq '~1m ago', strip-color prop \activity, format-row-obj do
         building          : false
         duration          : 60000
         timestamp         : Date.now! - 120000

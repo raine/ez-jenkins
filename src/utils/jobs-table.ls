@@ -1,10 +1,10 @@
-{merge, for-each, map, pick-all, any, values, is-nil, slice} = require 'ramda'
+{merge, for-each, map, pick-all, any, values, is-nil, slice, identity} = require 'ramda'
 require! 'cli-table': Table
 require! './build-result-color'
 debug = require '../debug' <| __filename
 require! 'data.maybe': Maybe
 require! \pretty-ms
-require! chalk: {inverse}
+require! chalk
 
 pick-props = (props, obj) -->
   [obj[k] for k in props]
@@ -20,13 +20,15 @@ limit-to = (n, x) -->
   if x > n then n else x
 
 pct = (it) ->
-  (+ '%') <| (limit-to 100) (it * 100).to-fixed 0
+  (+ '%') <| (limit-to 100pct) (it * 100).to-fixed 0
 
 format-activity = (obj) ->
   if not obj.building
     finished    = obj.timestamp + obj.duration
     since-build = Date.now! - finished
-    (+ ' ago') <| pretty-ms since-build, compact: true
+    str = (+ ' ago') <| pretty-ms since-build, compact: true
+    color-fn = if since-build < 1000 * 60 * 10min then chalk.bold else chalk.dim
+    color-fn str
   else
     duration = Date.now! - obj.timestamp
     progress = duration / obj.estimated-duration
@@ -36,7 +38,7 @@ format-activity = (obj) ->
 
     char-progress = (limit-to str.length) Math.round progress * str.length
 
-    done-str = inverse slice 0, char-progress, str
+    done-str = chalk.inverse slice 0, char-progress, str
     left-str = slice char-progress, str.length, str
     done-str + left-str
 
