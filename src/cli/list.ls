@@ -1,10 +1,8 @@
 {coroutine: async} = require \bluebird
 {fuzzy-filter-prop, format-jobs-table} = require '../utils'
 require! '../api/list-jobs'
-require! ramda: {identity, is-empty, if-else, filter, prop}
+require! ramda: {identity, is-empty, filter, prop}
 debug = require '../debug' <| __filename
-
-fuzzy-by-name = fuzzy-filter-prop \jobName
 
 REGEX = /\/([^/]+)\/?[gi]*?/
 is-regex = -> REGEX.test it
@@ -17,7 +15,7 @@ prop-test = (property, re, obj) -->
 get-filter-by-type = (str) ->
   | str is undefined => identity
   | is-regex str     => filter prop-test \jobName, (str-to-regex str)
-  | otherwise        => fuzzy-by-name
+  | otherwise        => fuzzy-filter-prop \jobName, str
 
 cli-list = ({input}) ->
   list-jobs!
