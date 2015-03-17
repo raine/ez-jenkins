@@ -6,7 +6,7 @@ module.exports = ->
   """
   enter jenkins base url (abort with ^C)
 
-  #{bold 'http://ci.example.com/'}job/test-job-1234
+  http://ci.example.com/job/test-job-1234
   └───── base url ─────┘
 
   """ |> console.log
