@@ -27,14 +27,19 @@ format-activity = (obj) ->
     finished    = obj.timestamp + obj.duration
     since-build = Date.now! - finished
     str = (+ ' ago') <| pretty-ms since-build, compact: true
-    color-fn = if since-build < 1000 * 60 * 10min then chalk.bold else chalk.dim
+
+    color-fn = switch
+    | since-build < 1000 * 60 * 10min   => chalk.bold
+    | since-build > 1000 * 60 * 60 * 1h => chalk.dim
+    | otherwise                         => identity
+
     color-fn str
   else
     duration = Date.now! - obj.timestamp
     progress = duration / obj.estimated-duration
-    overdue = duration > obj.estimated-duration
-    postfix = if overdue then '+' else ''
-    str = "building (#{pct progress}#postfix)"
+    overdue  = duration > obj.estimated-duration
+    postfix  = if overdue then '+' else ''
+    str      = "building (#{pct progress}#postfix)"
 
     char-progress = (limit-to str.length) Math.round progress * str.length
 

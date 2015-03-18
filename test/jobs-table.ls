@@ -1,7 +1,7 @@
 {sinon} = require './test-util'
 require! '../src/utils': {format-jobs-table, format-row-obj}
-require! ramda: {prop}
-require! chalk: {green, inverse, strip-color}
+require! ramda: {prop, merge}
+require! chalk: {green, inverse, strip-color, bold, dim}
 
 JOBS = [
   job-name : \foo-1
@@ -52,24 +52,43 @@ describe 'format-row-obj' (,) ->
         eq \never, prop \activity, format-row-obj job-name: \foo
 
     describe 'without job building' (,) ->
+      base-data =
+        building          : false
+        timestamp         : Date.now! - 120000
+        estimatedDuration : 1 # unimportant values
+        duration          : 1 # but have to exist in job
+
+      get-activity = (prop \activity) . format-row-obj . merge base-data
+
       it 'is time ago str' ->
-        eq '~1m ago', strip-color prop \activity, format-row-obj do
-          building          : false
-          duration          : 60000
-          timestamp         : Date.now! - 120000
-          estimatedDuration : 1
+        eq '~1m ago', strip-color get-activity do
+          timestamp: Date.now! - 1000 * 60 * 2m
+
+      it 'is bold if last build < 10min' ->
+        eq (bold '~4m ago'), get-activity do
+          timestamp: Date.now! - 1000 * 60 * 5m
+
+      it 'is dimmed if last build > 1h' ->
+        eq (dim '~1h ago'), get-activity do
+          timestamp: Date.now! - 1000 * 60 * 60 * 2h
+
+      it 'is normal color if 10min < last build < 1h' ->
+        eq '~29m ago', get-activity do
+          timestamp: Date.now! - 1000 * 60 * 30m
 
     describe 'with job building' (,) ->
+      base-data =
+        building           : true
+        duration           : 0
+        timestamp          : Date.now! - 20000
+        estimated-duration : 10000
+
+      get-activity = (prop \activity) . format-row-obj . merge base-data
+
       it 'is progress bar' ->
-        eq (inverse 'buildin') + 'g (50%)', prop \activity, format-row-obj do
-          building           : true
-          duration           : 0
-          timestamp          : Date.now! - 5000
-          estimated-duration : 10000
+        eq (inverse 'buildin') + 'g (50%)', get-activity do
+          timestamp: Date.now! - 5000
 
       it 'shows max 100%+' ->
-        eq 'building (100%+)', strip-color prop \activity, format-row-obj do
-          building           : true
-          duration           : 0
-          timestamp          : Date.now! - 20000
-          estimated-duration : 10000
+        eq 'building (100%+)', strip-color get-activity do
+          timestamp: Date.now! - 20000
