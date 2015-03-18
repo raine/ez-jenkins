@@ -64,8 +64,7 @@ describe 'format-row-obj' (,) ->
         timestamp          : Date.now! - 5000
         estimated-duration : 10000
 
-    it 'shows max 100% and zzz' ->
-
+    it 'shows max 100%+' ->
       eq 'building (100%+)', strip-color prop \activity, format-row-obj do
         building           : true
         duration           : 0
