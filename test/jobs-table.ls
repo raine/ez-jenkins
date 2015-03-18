@@ -47,26 +47,29 @@ describe 'format-row-obj' (,) ->
     after ->
       clock.restore!
 
-    it 'shows "never" if no data' ->
-      eq \never, prop \activity, format-row-obj job-name: \foo
+    describe 'with no data for job' (,) ->
+      it 'shows "never"' ->
+        eq \never, prop \activity, format-row-obj job-name: \foo
 
-    it 'is time ago str if not building' ->
-      eq '~1m ago', strip-color prop \activity, format-row-obj do
-        building          : false
-        duration          : 60000
-        timestamp         : Date.now! - 120000
-        estimatedDuration : 1
+    describe 'without job building' (,) ->
+      it 'is time ago str' ->
+        eq '~1m ago', strip-color prop \activity, format-row-obj do
+          building          : false
+          duration          : 60000
+          timestamp         : Date.now! - 120000
+          estimatedDuration : 1
 
-    it 'is progress indicator if building' ->
-      eq (inverse 'buildin') + 'g (50%)', prop \activity, format-row-obj do
-        building           : true
-        duration           : 0
-        timestamp          : Date.now! - 5000
-        estimated-duration : 10000
+    describe 'with job building' (,) ->
+      it 'is progress bar' ->
+        eq (inverse 'buildin') + 'g (50%)', prop \activity, format-row-obj do
+          building           : true
+          duration           : 0
+          timestamp          : Date.now! - 5000
+          estimated-duration : 10000
 
-    it 'shows max 100%+' ->
-      eq 'building (100%+)', strip-color prop \activity, format-row-obj do
-        building           : true
-        duration           : 0
-        timestamp          : Date.now! - 20000
-        estimated-duration : 10000
+      it 'shows max 100%+' ->
+        eq 'building (100%+)', strip-color prop \activity, format-row-obj do
+          building           : true
+          duration           : 0
+          timestamp          : Date.now! - 20000
+          estimated-duration : 10000
