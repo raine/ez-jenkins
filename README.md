@@ -17,7 +17,7 @@ jenkins tail <job-name>
 
 ## features
 
-- **`list`** jobs in a table
+- **`list`** jobs in a table, usable as [terminal walldisplay](https://github.com/raine/ez-jenkins/tree/master/etc)
 - **`tail`** a job for output indefinitely
 - open job configuration view in browser with **`configure`**
 - fuzzy search: provides suggestions when a job name provides no exact match
