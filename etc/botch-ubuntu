@@ -1,0 +1,14 @@
+botch() {
+  printf '\e[?25l'
+  clear
+  while true; do
+    (echo '\033[H'
+      CMD="$@"
+      bash -c "$CMD" | while read LINE; do 
+        echo -n "$LINE"
+        echo '\033[0K' 
+      done
+      echo '\033[J') | tac | tac 
+    sleep 2 
+  done
+}
