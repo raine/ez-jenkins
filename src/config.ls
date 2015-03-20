@@ -22,7 +22,7 @@ safe-read = (path) ->
 
     process.exit 1
 
-var config
+config = null
 export get = (key) ->
   debug 'get key=%s', key
   config ?:= safe-read config-path

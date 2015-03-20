@@ -3,8 +3,8 @@ require! bluebird: Promise
 require! 'data.maybe': Maybe
 {called-with, called-with-exactly, not-called} = sinon.assert
 
-var cli-tail
-var sandbox
+cli-tail = null
+sandbox = null
 
 describe 'cli-tail' (,) ->
   before-each ->

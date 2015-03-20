@@ -5,8 +5,8 @@ require! 'data.maybe': Maybe
 {called-with, called-with-exactly, not-called} = sinon.assert
 
 open = sinon.spy!
-var cli-configure
-var sandbox
+cli-configure = null
+sandbox = null
 
 proxyquire-defaults =
   'open': open
