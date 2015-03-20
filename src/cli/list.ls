@@ -1,5 +1,5 @@
 {coroutine: async} = require \bluebird
-{fuzzy-filter-prop, format-jobs-table} = require '../utils'
+{fuzzy-filter-prop, format-jobs-table, die} = require '../utils'
 require! '../api/list-jobs'
 require! ramda: {identity, is-empty, filter, prop}
 debug = require '../debug' <| __filename
@@ -25,5 +25,8 @@ cli-list = ({input}) ->
         console.log format-jobs-table jobs
       else
         console.error 'Nothing found with given parameters'
+    .catch (e) ->
+      die e.message
+
 
 module.exports = cli-list
