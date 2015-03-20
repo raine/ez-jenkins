@@ -2,8 +2,8 @@
 require! bluebird: Promise
 {called-with, called-with-exactly, not-called} = sinon.assert
 
-var cli-list
-var sandbox
+cli-list = null
+sandbox = null
 format-jobs-table = sinon.spy!
 
 describe 'cli-list' (,) ->

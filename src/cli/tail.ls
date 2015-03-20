@@ -24,7 +24,7 @@ format-line = (build, line) ->
   "#build-number #line"
 
 format-tail-output = ->
-  var cur-build
+  cur-build = null
 
   through.obj (chunk, enc, next) ->
     push-line = ~> @push new Buffer "#it\n"

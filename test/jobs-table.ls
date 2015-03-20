@@ -39,7 +39,7 @@ describe 'format-row-obj' (,) ->
         job-name : \foo
         result   : \SUCCESS
 
-  var clock
+  clock = null
   describe 'activity' (,) ->
     before ->
       clock := sinon.use-fake-timers Date.now!

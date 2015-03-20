@@ -11,7 +11,7 @@ BUILD_DATA =
   result: 'SUCCESS',
   timestamp: 1425683052872
 
-var clock
+clock = null
 describe 'format-build-info' (,) ->
   before ->
     clock := sinon.use-fake-timers Date.now!
