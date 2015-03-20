@@ -41,27 +41,29 @@ format-tail-output = ->
 
     next!
 
-cli-tail = async (opts, second-time) ->*
+cli-tail = (opts, second-time) ->
   {job-name, build-number, follow} = opts
 
-  try
-    output = yield tail-build job-name, build-number, follow
-    output.cata do
-      Just: (output) ->
-        output
-          .pipe format-tail-output!
-          .pipe process.stdout
-      Nothing: async ->*
-        print-err = -> error job-name, build-number |> console.error
-        return print-err! if second-time
+  tail-build job-name, build-number, follow
+    .then (output) ->
+      output.cata do
+        Just: (output) ->
+          output
+            .pipe format-tail-output!
+            .on \data ->
+              # do nothing
+        Nothing: async ->*
+          print-err = -> error job-name, build-number |> console.error
+          return print-err! if second-time
 
-        (fuzzy-filter job-name, yield get-all-jobs!)
-          .map list-choice 'No such job, did you mean one of these?\n'
-          .cata do
-            Just: (job-name) ->
-              cli-tail {job-name, build-number, follow}, true
-            Nothing: print-err
-  catch
-    die e
+          return (fuzzy-filter job-name, yield get-all-jobs!)
+            .map list-choice 'No such job, did you mean one of these?\n'
+            .cata do
+              Just: (job-name) ->
+                console.log 'calling cli-tail'
+                cli-tail {job-name, build-number, follow}, true
+              Nothing: print-err
+
+    .catch die
 
 module.exports = cli-tail
