@@ -1,11 +1,12 @@
 yaml   = require 'js-yaml'
 fs     = require 'fs'
-path   = require 'path'
 mkdirp = require 'mkdirp'
+require! path: {dirname, join}
+require! ramda: {prop}
 
 debug = require './debug' <| __filename
 home = process.env.HOME
-export config-path = path.join home, \.config, \ez-jenkins, \config.yaml
+config-path = join home, \.config, \ez-jenkins, \config.yaml
 debug config-path
 
 safe-read = (path) ->
@@ -15,6 +16,7 @@ safe-read = (path) ->
     yaml-str = fs.read-file-sync path, 'utf8'
     yaml.safe-load yaml-str
   else
+    # ugly
     """
     config unavailable (#config-path)
     run `jenkins setup`
@@ -22,14 +24,21 @@ safe-read = (path) ->
 
     process.exit 1
 
-config = null
-export get = (key) ->
-  debug 'get key=%s', key
-  config ?:= safe-read config-path
-  config[key]
+read-config = do ->
+  config = null
+  -> config ?:= safe-read config-path
+
+export path = config-path
+
+export get = do ->
+  config = null
+
+  (key) ->
+    debug 'get key=%s', key
+    prop key, read-config!
 
 export save = (obj) ->
   debug 'save obj=%s', JSON.stringify obj
-  mkdirp.sync path.dirname config-path
+  mkdirp.sync dirname config-path
   yaml-str = yaml.safe-dump obj
   fs.write-file-sync config-path, yaml-str
