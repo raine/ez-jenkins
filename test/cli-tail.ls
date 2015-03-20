@@ -25,5 +25,4 @@ describe 'cli-tail' (,) ->
         '../api/get-all-jobs' : -> Promise.resolve []
 
       yield cli-tail job-name: \test-job-1000
-      yield Promise.delay 1 # unreliable hack: inner console.error happens after yield cli-tail comes back
       called-with console.error, 'Unable to find job: test-job-1000'
