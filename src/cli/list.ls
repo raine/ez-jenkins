@@ -28,5 +28,4 @@ cli-list = ({input}) ->
     .catch (e) ->
       die e.message
 
-
 module.exports = cli-list
