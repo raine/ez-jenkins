@@ -27,7 +27,7 @@ describe 'cli-configure' (,) ->
         '../api/get-all-jobs': -> Promise.resolve <[ test-job-1234 ]>
 
     it 'opens url in browser' async ->*
-      yield cli-configure job-name: \test-job-1234
+      yield cli-configure __: \test-job-1234
       called-with-exactly open, JENKINS_URL + '/job/test-job-1234/configure'
 
   describe 'without job matches' (,) ->
@@ -36,9 +36,9 @@ describe 'cli-configure' (,) ->
         '../api/get-all-jobs': -> Promise.resolve []
 
     it "doesn't open browser" async ->*
-      yield cli-configure job-name: \test-job-1234
+      yield cli-configure __: \test-job-1234
       not-called open
 
     it 'shows an error' async ->*
-      yield cli-configure job-name: \test-job-1000
+      yield cli-configure __: \test-job-1000
       called-with console.error, 'Unable to find job: test-job-1000'

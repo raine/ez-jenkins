@@ -17,7 +17,7 @@ get-filter-by-type = (str) ->
   | is-regex str     => filter prop-test \jobName, (str-to-regex str)
   | otherwise        => fuzzy-filter-prop \jobName, str
 
-cli-list = ({input}) ->
+cli-list = (__: input) ->
   list-jobs!
     .then get-filter-by-type input
     .then (jobs) ->

@@ -7,15 +7,16 @@ get-all-jobs = require '../api/get-all-jobs'
 {fuzzy-filter, format-jobs-table} = require '../utils'
 require! open
 
-cli-configure = async (opts) ->*
-  debug opts, 'configure'
+cli-configure = async (argv) ->*
+  debug argv, 'configure'
+  job-name = argv.__
 
-  (fuzzy-filter opts.job-name, yield get-all-jobs!)
+  return (fuzzy-filter job-name, yield get-all-jobs!)
     .map list-choice 'no such job, did you mean one of these?\n'
     .cata do
       Just: (job-name) ->
         open format-url "/job/#job-name/configure"
       Nothing: ->
-        "Unable to find job: #{opts.job-name}" |> console.error
+        "Unable to find job: #{job-name}" |> console.error
 
 module.exports = cli-configure

@@ -41,8 +41,8 @@ format-tail-output = ->
 
     next!
 
-cli-tail = (opts, second-time) ->
-  {job-name, build-number, follow} = opts
+cli-tail = (argv, second-time) ->
+  {__: job-name, build-number, follow} = argv
 
   tail-build job-name, build-number, follow
     .then (output) ->
@@ -61,7 +61,7 @@ cli-tail = (opts, second-time) ->
             .cata do
               Just: (job-name) ->
                 console.log 'calling cli-tail'
-                cli-tail {job-name, build-number, follow}, true
+                cli-tail {__: job-name, build-number, follow}, true
               Nothing: print-err
 
     .catch die
