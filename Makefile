@@ -46,7 +46,7 @@ publish: all test
 test:
 	@$(MOCHA) --harmony-generators --reporter $(REPORTER)
 
-test-watch:
+test-w:
 	@$(MOCHA) --watch --harmony-generators --reporter min
 
 prepublish:
