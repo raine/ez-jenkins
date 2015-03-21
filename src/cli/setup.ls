@@ -32,7 +32,7 @@ module.exports = async ->*
           """ |> console.log
         Nothing: ->
           write '\n'
-          die "Error: Could not find Jenkins API in the given URL"
+          die "Error: Could not find jenkins API in the given URL"
 
     .catch ->
       write '\n'
