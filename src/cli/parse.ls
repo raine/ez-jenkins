@@ -1,5 +1,6 @@
 yargs = require \yargs
 debug = require '../debug' <| __filename
+require! ramda: {join, merge}
 
 module.exports = (argv) ->
   debug argv
@@ -57,6 +58,9 @@ module.exports = (argv) ->
   | otherwise
     debug 'no command matched, showing help'
     yargs.show-help!
-    yargs.argv
+    process.exit 1
 
-  {command, argv: parsed-argv}
+  __ = parsed-argv._.slice 1 |> join ' '
+
+  command : command
+  argv    : merge parsed-argv, {__}

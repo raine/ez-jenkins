@@ -31,14 +31,14 @@ describe 'cli-list' (,) ->
 
     # TODO: test output instead of what format-jobs-table was called with?
     it 'filters by fuzzy matching if input is string' async ->*
-      yield cli-list input: \tst
+      yield cli-list __: \tst
       called-with format-jobs-table, [
         * job-name: \test
         * job-name: \test-123
       ]
 
     it 'filters by regex if input is regex-like' async ->*
-      yield cli-list input: '/test$/'
+      yield cli-list __: '/test$/'
       called-with format-jobs-table, [
         * job-name: \test
       ]
@@ -49,5 +49,5 @@ describe 'cli-list' (,) ->
         '../api/list-jobs': -> Promise.resolve []
 
     it 'shows an error' async ->*
-      yield cli-list input: \foo
+      yield cli-list __: \foo
       called-with console.error, 'Nothing found with given parameters'

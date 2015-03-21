@@ -24,5 +24,5 @@ describe 'cli-tail' (,) ->
         '../api/tail-build'   : -> Promise.resolve Maybe.Nothing!
         '../api/get-all-jobs' : -> Promise.resolve []
 
-      yield cli-tail job-name: \test-job-1000
+      yield cli-tail __: \test-job-1000
       called-with console.error, 'Unable to find job: test-job-1000'
