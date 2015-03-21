@@ -1,12 +1,12 @@
 require! bluebird: Promise
-require! '../utils': { format-url }
+require! '../utils': {format-url, ensure-res-body}
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 require! ramda: {prop, map}
 
 module.exports = get-all-jobs = ->
   debug 'req start'
-  request {
+  ensure-res-body request {
     url: format-url '/api/json'
     qs: { tree: 'jobs[name]' }
     +json

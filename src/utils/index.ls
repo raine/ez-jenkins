@@ -15,5 +15,6 @@ module.exports = merge [
     build-result-color : './build-result-color'
   require './jobs-table'
   require './fuzzy-filter'
+  require './ensure-res-body'
   {die}
 ]
