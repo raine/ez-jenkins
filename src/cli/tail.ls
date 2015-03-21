@@ -50,8 +50,7 @@ cli-tail = (argv, second-time) ->
         Just: (output) ->
           output
             .pipe format-tail-output!
-            .on \data ->
-              # do nothing
+            .pipe process.stdout
         Nothing: async ->*
           print-err = -> error job-name, build-number |> console.error
           return print-err! if second-time
@@ -60,7 +59,6 @@ cli-tail = (argv, second-time) ->
             .map list-choice 'No such job, did you mean one of these?\n'
             .cata do
               Just: (job-name) ->
-                console.log 'calling cli-tail'
                 cli-tail {__: job-name, build-number, follow}, true
               Nothing: print-err
 
