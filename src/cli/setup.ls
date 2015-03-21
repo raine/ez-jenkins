@@ -1,19 +1,39 @@
-readline-sync = require 'readline-sync'
-config = require '../config'
-{bold} = require 'chalk'
+require! bluebird: {coroutine: async}: Promise
+require! 'readline-sync'
+require! '../api/check-base-url'
+require! '../config'
+require! chalk: {bold}
+require! '../utils': {die}
+require! ramda: {bind}
 
-module.exports = ->
+write = bind process.stdout.write, process.stdout
+
+module.exports = async ->*
   """
-  enter jenkins base url (abort with ^C)
-
-  http://ci.example.com/job/test-job-1234
-  └───── base url ─────┘
-
+  Enter jenkins base url (abort with ^C)
+  Base url is the url of jenkins' main view
   """ |> console.log
 
-  config.save url: readline-sync.prompt!
+  base-url = readline-sync.prompt!
 
-  """
-  configuration written to #{config.path}
-  ready to go!
-  """ |> console.log
+  write 'Checking URL..'
+  interval = set-interval (-> write '.'), 200
+
+  check-base-url base-url
+    .tap -> clear-interval interval
+    .then ->
+      it.cata do
+        Just: ->
+          write bold.green ' OK!\n'
+
+          """
+          Configuration written to #{config.path}
+          Ready to go!
+          """ |> console.log
+        Nothing: ->
+          write '\n'
+          die "Error: Could not find Jenkins API in the given URL"
+
+    .catch ->
+      write '\n'
+      die it

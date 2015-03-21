@@ -1,17 +1,17 @@
 require! {
   bluebird: Promise
-  '../utils': { format-url }
-  '../constants': { BUILD_KEYS }
+  '../utils': {format-url, ensure-res-body}
+  '../constants': {BUILD_KEYS}
   'data.maybe': Maybe
 }
-{pipe, merge, prop, map} = require \ramda
+require! ramda: {pipe, merge, prop, map}
 request = Promise.promisify require 'request'
 debug = require '../debug' <| __filename
 
 module.exports = ->
   debug 'req start'
   tree = "jobs[name,lastBuild[#{BUILD_KEYS}]]"
-  request {
+  ensure-res-body request {
     url: format-url "/api/json"
     qs: {tree}
     +json

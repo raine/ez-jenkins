@@ -25,7 +25,6 @@ cli-list = (__: input) ->
         console.log format-jobs-table jobs
       else
         console.error 'Nothing found with given parameters'
-    .catch (e) ->
-      die e.message
+    .catch die
 
 module.exports = cli-list
