@@ -25,7 +25,7 @@ module.exports = async ->*
       it.cata do
         Just: ->
           write bold.green ' OK!\n'
-          config.save base-url
+          config.save url: base-url
 
           """
           Configuration written to #{config.path}
