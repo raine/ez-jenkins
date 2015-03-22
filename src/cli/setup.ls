@@ -1,4 +1,4 @@
-require! bluebird: {coroutine: async}: Promise
+require! bluebird: {coroutine: async}
 require! 'readline-sync'
 require! '../api/check-base-url'
 require! '../config'
