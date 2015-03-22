@@ -7,6 +7,8 @@ MOCHA = ./node_modules/.bin/mocha
 LSC = ./node_modules/.bin/lsc
 NAME = $(shell node -e "console.log(require('./package.json').name)")
 REPORTER ?= spec
+GREP ?= ".*"
+MOCHA_ARGS = --harmony-generators --grep $(GREP)
 
 default: all
 
@@ -44,10 +46,10 @@ publish: all test
 	npm publish
 
 test:
-	@$(MOCHA) --harmony-generators --reporter $(REPORTER)
+	@$(MOCHA) $(MOCHA_ARGS) --reporter $(REPORTER) --grep $(GREP)
 
 test-w:
-	@$(MOCHA) --watch --harmony-generators --reporter min
+	@$(MOCHA) $(MOCHA_ARGS) --reporter min --watch
 
 prepublish:
 	@if [ -z "$$TRAVIS" -a -e lib/index.js ]; then \
