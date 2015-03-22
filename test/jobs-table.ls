@@ -1,7 +1,7 @@
 {sinon} = require './test-util'
 require! '../src/utils': {format-jobs-table, format-row-obj}
 require! ramda: {prop, merge}
-require! chalk: {green, inverse, strip-color, bold, dim}
+require! chalk: {red, green, inverse, strip-color, bold, dim}
 
 JOBS = [
   job-name : \foo-1
@@ -31,13 +31,37 @@ describe 'format-row-obj' (,) ->
       eq 'N/A', prop \number, format-row-obj number: undefined
 
   describe 'name' (,) ->
-    it 'exists' ->
-      eq \foo, prop \jobName, format-row-obj job-name: \foo
+    describe 'without job building' (,) ->
+      it 'shows simply job name if no other data exists' ->
+        eq \foo, prop \jobName, format-row-obj job-name: \foo
 
-    it 'is green if build is successful' ->
-      eq (green \foo), prop \jobName, format-row-obj do
-        job-name : \foo
-        result   : \SUCCESS
+      it 'is green if build is successful' ->
+        eq (green \foo), prop \jobName, format-row-obj do
+          job-name             : \foo
+          result               : \SUCCESS
+          building             : false
+          last-completed-build : result: \SUCCESS
+
+      it 'is red if build is unsuccessful' ->
+        eq (red \foo), prop \jobName, format-row-obj do
+          job-name             : \foo
+          result               : \FAILURE
+          building             : false
+          last-completed-build : result: \SUCCESS
+
+    describe 'with job building' (,) ->
+      it 'shows the name with color of the previous build with bold' ->
+        eq (green.bold \foo), prop \jobName, format-row-obj do
+          job-name             : \foo
+          result               : null
+          building             : true
+          last-completed-build : result: \SUCCESS
+
+      it 'shows the name without color if there is no previous build' ->
+        eq \foo, prop \jobName, format-row-obj do
+          job-name : \foo
+          result   : null
+          building : true
 
   clock = null
   describe 'activity' (,) ->

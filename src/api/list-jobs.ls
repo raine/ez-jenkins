@@ -1,3 +1,5 @@
+# lastCompletedBuild and lastBuild can be null in the API
+
 require! {
   bluebird: Promise
   '../utils': {format-url, ensure-res-body}
@@ -10,7 +12,7 @@ debug = require '../debug' <| __filename
 
 module.exports = ->
   debug 'req start'
-  tree = "jobs[name,lastBuild[#{BUILD_KEYS}]]"
+  tree = "jobs[name,lastBuild[#{BUILD_KEYS}],lastCompletedBuild[result]]"
   ensure-res-body request {
     url: format-url "/api/json"
     qs: {tree}
@@ -20,4 +22,5 @@ module.exports = ->
   .get \1
   .then pipe do
     prop \jobs
-    map -> merge it.last-build, {job-name: it.name}
+    map (job) -> merge job.last-build,
+      {job-name: job.name, job.last-completed-build}

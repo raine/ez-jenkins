@@ -9,7 +9,7 @@ JSON_DATA = require './data/list-jobs.json'
 _nock = ->
   nock JENKINS_URL
     .get '/api/json?' +
-      qs tree: 'jobs[name,lastBuild[building,timestamp,estimatedDuration,duration,result,number]]'
+      qs tree: 'jobs[name,lastBuild[building,timestamp,estimatedDuration,duration,result,number],lastCompletedBuild[result]]'
 
 describe 'list-jobs' (,) ->
   after-each -> nock.clean-all!
@@ -19,19 +19,21 @@ describe 'list-jobs' (,) ->
     jobs = yield list-jobs!
     
     deep-eq jobs, [
-      * job-name           : \foo-1
-        building           : false
-        duration           : 62
-        estimated-duration : 49
-        number             : 133
-        result             : \SUCCESS
-        timestamp          : 1344503360000
+      * job-name             : \foo-1
+        building             : false
+        duration             : 62
+        estimated-duration   : 49
+        number               : 133
+        result               : \SUCCESS
+        timestamp            : 1344503360000
+        last-completed-build : result: \SUCCESS
 
-      * job-name           : \foo-2
-        building           : false
-        duration           : 1168836
-        estimated-duration : 1154187
-        number             : 139
-        result             : \SUCCESS
-        timestamp          : 1344503365000
+      * job-name             : \foo-2
+        building             : false
+        duration             : 1168836
+        estimated-duration   : 1154187
+        number               : 139
+        result               : \SUCCESS
+        timestamp            : 1344503365000
+        last-completed-build : result: \FAILURE
     ]

@@ -1,10 +1,9 @@
-require! chalk
-require! ramda: {identity}
+require! 'data.maybe': Maybe
 
 module.exports = ->
-  color = switch it
+  switch it
   | \SUCCESS  => \green
   | \ABORTED  => \inverse
   | \FAILURE  => \red
-
-  color and chalk[color] or identity
+  | otherwise => null
+  |> Maybe.from-nullable

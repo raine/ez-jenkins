@@ -9,6 +9,9 @@
                 "result": "SUCCESS",
                 "timestamp": 1344503360000
             },
+            "lastCompletedBuild": {
+                "result": "SUCCESS"
+            },
             "name": "foo-1"
         },
         {
@@ -19,6 +22,9 @@
                 "number": 139,
                 "result": "SUCCESS",
                 "timestamp": 1344503365000
+            },
+            "lastCompletedBuild": {
+                "result": "FAILURE"
             },
             "name": "foo-2"
         }
