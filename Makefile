@@ -46,7 +46,7 @@ publish: all test
 	npm publish
 
 test:
-	@$(MOCHA) $(MOCHA_ARGS) --reporter $(REPORTER) --grep $(GREP)
+	@$(MOCHA) $(MOCHA_ARGS) --reporter $(REPORTER)
 
 test-w:
 	@$(MOCHA) $(MOCHA_ARGS) --reporter min --watch
