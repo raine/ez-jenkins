@@ -10,7 +10,7 @@ export fuzzy-filter-prop = (property, pattern, list) -->
 export fuzzy-filter = (pattern, list) -->
   filtered = map (prop \string), fuzzy pattern, list
 
-  return if is-empty filtered
+  if is-empty filtered
     Maybe.Nothing!
   else
     Maybe.of filtered .map take 10
