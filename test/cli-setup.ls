@@ -7,7 +7,7 @@ require! \readline-sync
 save = sinon.spy!
 die  = sinon.spy!
 
-var cli-setup, check-base-url-stub, prompt-stub
+var cli-setup, check-base-url-stub, prompt-stub, sandbox
 
 describe 'cli-setup' (,) ->
   before ->
@@ -27,12 +27,19 @@ describe 'cli-setup' (,) ->
       '../config': {save},
       '../utils': {die}
 
+  before-each ->
+    sandbox := sinon.sandbox.create!
+    sandbox.stub process.stdout, 'write'
+    sandbox.stub console, 'log'
+    sandbox.stub console, 'error'
+
   after ->
     prompt-stub.restore!
     proxyquire.call-thru!
 
   after-each ->
     [ prompt-stub, check-base-url-stub, save ].for-each -> it.reset!
+    sandbox.restore!
 
   describe 'general' (,) ->
     before ->
