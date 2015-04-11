@@ -37,7 +37,7 @@
     "mkdirp": "^0.5.0",
     "open": "0.0.5",
     "pretty-ms": "^1.1.0",
-    "ramda": "^0.11.0",
+    "ramda": "^0.13.0",
     "readline-sync": "^0.7.5",
     "request": "^2.53.0",
     "split2": "^0.2.1",

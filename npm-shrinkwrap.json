@@ -119,8 +119,8 @@
       }
     },
     "ramda": {
-      "version": "0.11.0",
-      "resolved": "https://registry.npmjs.org/ramda/-/ramda-0.11.0.tgz"
+      "version": "0.13.0",
+      "resolved": "https://registry.npmjs.org/ramda/-/ramda-0.13.0.tgz"
     },
     "readable-stream": {
       "version": "1.0.33",

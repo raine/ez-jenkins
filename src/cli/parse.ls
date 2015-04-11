@@ -19,9 +19,35 @@ module.exports = (argv) ->
     yargs.reset!
       .usage 'Usage: jenkins list [options] [<pattern>]'
       .demand 1, null
+      .option \b,
+        type        : \boolean
+        description : "list building jobs"
+        alias       : \building
+        default     : void
+      .option \s,
+        type        : \boolean
+        description : "list successful jobs"
+        alias       : \successful
+        default     : void
+      .option \f,
+        type        : \boolean
+        description : "list failed jobs"
+        alias       : \failed
+        default     : void
+      .option \r,
+        type        : \boolean
+        description : "list recent jobs (<10min)"
+        alias       : \recent
+        default     : void
       .example 'jenkins list'
       .example 'jenkins list my-build'
-      .epilogue 'pattern can be a regex or fuzzily matching string'
+      .example 'jenkins list --building --failed'
+      .epilogue do
+        """
+        <pattern> can be a regex or fuzzily matching string
+
+        multiple predicates are combined in OR fashion
+        """
       .help \h, 'show help'
       .alias \h, \help
       .parse argv

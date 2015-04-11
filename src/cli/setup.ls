@@ -6,9 +6,9 @@ require! chalk: {bold}
 require! '../utils': {die}
 require! ramda: {bind}
 
-write = bind process.stdout.write, process.stdout
-
 module.exports = async ->*
+  write = bind process.stdout.write, process.stdout
+
   """
   Enter jenkins base url (abort with ^C)
   Base url is the url of jenkins' main view

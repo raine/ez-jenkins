@@ -20,6 +20,14 @@ describe 'list' (,) ->
     called-with list, sinon.match do
       __: \foo
 
+  it 'is called with options' ->
+    cli <[ list foo --building --failed --recent --successful ]>
+    called-with list, sinon.match do
+      building: true
+      failed: true
+      recent: true
+      successful: true
+
 describe 'tail' (,) ->
   before-each -> tail.reset!
 
