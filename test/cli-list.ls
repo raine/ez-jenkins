@@ -15,11 +15,10 @@ describe 'cli-list' (,) ->
   after-each ->
     sandbox.restore!
 
-  describe 'with job matches' (,) ->
+  describe 'input filtering with job matches' (,) ->
     before-each -> format-jobs-table.reset!
 
     before ->
-      sinon
       cli-list := proxyquire '../src/cli/list',
         '../utils':
           format-jobs-table: format-jobs-table
@@ -41,6 +40,53 @@ describe 'cli-list' (,) ->
       called-with format-jobs-table, [
         * job-name: \test
       ]
+
+  describe 'predicate arguments' (,) ->
+    var JOBS, clock
+    before-each -> format-jobs-table.reset!
+    before ->
+      clock := sinon.use-fake-timers Date.now!
+
+      JOBS := [
+        * job-name  : \test1
+          building  : false
+          timestamp : Date.now! - 1000 * 60 * 1m # recent
+          result    : \SUCCESS
+        * job-name  : \test2
+          building  : true
+          timestamp : Date.now! - 1000 * 60 * 15m
+          result    : null
+        * job-name  : \test3
+          building  : false
+          timestamp : Date.now! - 1000 * 60 * 15m
+          result    : \FAILURE
+      ]
+
+      cli-list := proxyquire '../src/cli/list',
+        '../utils': format-jobs-table: format-jobs-table
+        '../api/list-jobs': -> Promise.resolve JOBS
+
+    after -> clock.restore!
+
+    it 'filters by successful' async ->*
+      yield cli-list __: \test, successful: true
+      called-with format-jobs-table, [JOBS.0]
+
+    it 'filters by building' async ->*
+      yield cli-list __: \test, building: true
+      called-with format-jobs-table, [JOBS.1]
+
+    it 'filters by failed' async ->*
+      yield cli-list __: \test, failed: true
+      called-with format-jobs-table, [JOBS.2]
+
+    it 'filters by recent' async ->*
+      yield cli-list __: \test, recent: true
+      called-with format-jobs-table, [JOBS.0]
+
+    it 'filters by failed and building together (OR)' async ->*
+      yield cli-list __: \test, failed: true, building: true
+      called-with format-jobs-table, [JOBS.1, JOBS.2]
 
   describe 'without job matches' (,) ->
     before ->
