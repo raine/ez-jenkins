@@ -23,7 +23,6 @@ describe 'cli-list' (,) ->
       cli-list := proxyquire '../src/cli/list',
         '../utils':
           format-jobs-table: format-jobs-table
-
         '../api/list-jobs': -> Promise.resolve [
           * job-name: \test
           * job-name: \test-123
