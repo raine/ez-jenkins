@@ -113,6 +113,6 @@ describe 'format-row-obj' (,) ->
         eq (inverse 'buildin') + 'g (50%)', get-activity do
           timestamp: Date.now! - 5000
 
-      it 'shows max 100%+' ->
-        eq 'building (100%+)', strip-color get-activity do
-          timestamp: Date.now! - 20000
+      it 'shows percentage above 100%' ->
+        eq 'building (150%)', strip-color get-activity do
+          timestamp: Date.now! - 15000

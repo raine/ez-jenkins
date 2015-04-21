@@ -20,7 +20,7 @@ limit-to = (n, x) -->
   if x > n then n else x
 
 pct = (it) ->
-  (+ '%') <| (limit-to 100pct) (it * 100).to-fixed 0
+  (+ '%') <| (it * 100).to-fixed 0
 
 format-activity = (obj) ->
   if not obj.building
@@ -37,9 +37,7 @@ format-activity = (obj) ->
   else
     duration = Date.now! - obj.timestamp
     progress = duration / obj.estimated-duration
-    overdue  = duration > obj.estimated-duration
-    postfix  = if overdue then '+' else ''
-    str      = "building (#{pct progress}#postfix)"
+    str      = "building (#{pct progress})"
 
     char-progress = (limit-to str.length) Math.round progress * str.length
 
