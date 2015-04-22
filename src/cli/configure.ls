@@ -4,7 +4,7 @@ debug = require '../debug' <| __filename
 list-choice = curry require './list-choice'
 get-all-jobs = require '../api/get-all-jobs'
 {format-url} = require '../utils'
-{fuzzy-filter, format-jobs-table} = require '../utils'
+{fuzzy-filter} = require '../utils'
 require! open
 
 cli-configure = async (argv) ->*
