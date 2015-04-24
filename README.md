@@ -44,6 +44,8 @@ Commands:
 - [ ] start and stop builds
 - [ ] tail multiple builds
 
+Bug reports and feature requests are welcome.
+
 ## screenshots
 
 [![](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build.png)
