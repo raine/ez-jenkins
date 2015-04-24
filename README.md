@@ -1,4 +1,4 @@
-# ez-jenkins [![Build Status](https://travis-ci.org/raine/ez-jenkins.svg?branch=master)](https://travis-ci.org/raine/ez-jenkins) [![npm version](https://badge.fury.io/js/ez-jenkins.svg)](https://www.npmjs.com/package/ez-jenkins)
+# ez-jenkins [![Build Status](https://api.travis-ci.org/raine/ez-jenkins.svg?branch=master)](https://travis-ci.org/raine/ez-jenkins) [![npm version](https://badge.fury.io/js/ez-jenkins.svg)](https://www.npmjs.com/package/ez-jenkins)
 
 <p align="right">
   <a href="https://github.com/raine/ez-jenkins/blob/media/tail.gif">
