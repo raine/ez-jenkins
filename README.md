@@ -39,6 +39,11 @@ Commands:
   setup        interactively configure jenkins base url
 ```
 
+## roadmap
+
+- [ ] start and stop builds
+- [ ] tail multiple builds
+
 ## screenshots
 
 [![](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build-smaller.png)](https://raw.githubusercontent.com/raine/ez-jenkins/media/iojs-build.png)
