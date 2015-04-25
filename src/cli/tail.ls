@@ -3,15 +3,13 @@
 {coroutine: async} = require \bluebird
 through = require 'through2'
 {cyan} = require \chalk
-yargs = require \yargs
 tail-build = require '../api/tail-build'
 get-all-jobs = require '../api/get-all-jobs'
-{sort-abc, die} = require '../utils'
+{die} = require '../utils'
 list-choice = curry require './list-choice'
-Maybe = require 'data.maybe'
 debug = require '../debug' <| __filename
 format-build-info = require './format-build-info'
-{fuzzy-filter, format-jobs-table} = require '../utils'
+{fuzzy-filter} = require '../utils'
 
 error = (job-name, build-number) ->
   str = 'Unable to find job'
