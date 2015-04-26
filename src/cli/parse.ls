@@ -69,6 +69,7 @@ module.exports = (argv) ->
         alias       : \multi
       .example 'jenkins tail my-build -f'
       .example 'jenkins tail my-build -b 70'
+      .example 'jenkins tail "/deploy-(develop|staging)"'
       .epilogue do
         """
         <job-pattern> can be a regex or fuzzily matching string
