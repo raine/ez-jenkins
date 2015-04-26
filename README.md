@@ -19,8 +19,8 @@ jenkins tail <job-name>
 
 - **`list`** jobs in a table, usable as [terminal walldisplay](https://github.com/raine/ez-jenkins/tree/master/etc)
 - **`tail`** a job (or jobs matching a pattern) for output indefinitely
-  - use case: tail build logs in the same window for two jobs where one job's
-    completion triggers next
+  - example use case: tail build logs in the same window for multiple jobs where
+    one job's completion triggers the next job
 - open job configuration view in browser with **`configure`**
 - fuzzy search: provides suggestions when a job name provides no exact match
 
