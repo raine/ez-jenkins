@@ -48,6 +48,12 @@ describe 'tail' (,) ->
       __: \test-job-1234
       build-number: 100
 
+  it 'is called with --multi' ->
+    cli <[ tail test-job-1234 -m ]>
+    called-with tail, sinon.match do
+      __: \test-job-1234
+      multi: true
+
 describe 'setup' (,) ->
   before-each -> setup.reset!
 
