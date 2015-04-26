@@ -16,5 +16,6 @@ module.exports = merge [
   require './jobs-table'
   require './fuzzy-filter'
   require './ensure-res-body'
+  require './jobs-filter-by-str'
   {die}
 ]

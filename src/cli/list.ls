@@ -1,21 +1,7 @@
-{coroutine: async} = require \bluebird
-{fuzzy-filter-prop, format-jobs-table, die} = require '../utils'
+{format-jobs-table, die, jobs-filter-by-str} = require '../utils'
 require! '../api/list-jobs'
 require! ramda: {identity, is-empty, filter, prop, pick, pick-by, prop-eq, keys, to-pairs, map, apply, complement, lens, head, tail, any-pass, is-nil}
 debug = require '../debug' <| __filename
-
-REGEX = /\/([^/]+)\/?[gi]*?/
-is-regex = -> REGEX.test it
-str-to-regex = ->
-  new RegExp (it.match REGEX .1), 'i'
-
-prop-test = (property, re, obj) -->
-  re.test prop property, obj
-
-get-filter-by-type = (str) ->
-  | str is undefined => identity
-  | is-regex str     => filter prop-test \jobName, (str-to-regex str)
-  | otherwise        => fuzzy-filter-prop \jobName, str
 
 negate-if-false = (fn, bool) ->
   | not bool  => complement fn
@@ -46,7 +32,7 @@ cli-list = (argv) ->
   {__: input} = argv
 
   list-jobs!
-    .then get-filter-by-type input
+    .then jobs-filter-by-str input
     .then filter-by-predicates argv
     .then (jobs) ->
       unless is-empty jobs
