@@ -17,7 +17,7 @@ module.exports = (argv) ->
   parsed-argv = switch command
   | \list
     yargs.reset!
-      .usage 'Usage: jenkins list [options] [<pattern>]'
+      .usage 'Usage: jenkins list [options] [<job-pattern>]'
       .demand 1, null
       .option \b,
         type        : \boolean
@@ -44,7 +44,7 @@ module.exports = (argv) ->
       .example 'jenkins list --building --failed'
       .epilogue do
         """
-        <pattern> can be a regex or fuzzily matching string
+        <job-pattern> can be a regex or fuzzily matching string
 
         multiple predicates are combined in OR fashion
         """
@@ -53,7 +53,7 @@ module.exports = (argv) ->
       .parse argv
   | \tail
     yargs.reset!
-      .usage 'Usage: jenkins tail [options] <job-name>'
+      .usage 'Usage: jenkins tail [options] <job-pattern>'
       .demand 2, null
       .option \f,
         type        : \boolean
@@ -63,8 +63,19 @@ module.exports = (argv) ->
         type        : \number
         description : 'show output for a specific build'
         alias       : \build-number
+      .option \m,
+        type        : \boolean
+        description : 'tail and follow multiple jobs'
+        alias       : \multi
       .example 'jenkins tail my-build -f'
       .example 'jenkins tail my-build -b 70'
+      .epilogue do
+        """
+        <job-pattern> can be a regex or fuzzily matching string
+
+        --multi works so that when the given pattern matches multiple jobs,
+          ez-jenkins will always tail one of the jobs that has a build running
+        """
       .help \h, 'show help'
       .alias \h, \help
       .parse argv
