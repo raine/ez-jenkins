@@ -53,8 +53,6 @@ die-if-empty = tap (jobs) ->
   if is-empty jobs
     die 'Given pattern matched no jobs'
 
-cata = (obj, m) --> m.cata obj
-
 cli-multi-tail = async (argv) ->*
   debug 'cli-multi-tail'
   {__: input} = argv
@@ -62,23 +60,23 @@ cli-multi-tail = async (argv) ->*
   wait = partial Promise.delay, 1000
   wait-and-retry = compose-p retry, wait
 
+  tail-job = async (job-name) ->*
+    output = yield tail-build job-name
+    output.cata do
+      Just: (stream) ->
+        stream
+          .pipe format-tail-output!
+          .pipe process.stdout
+        stream.on \end, retry
+      Nothing: ->
+        die 'Something went wrong'
+
   (yield list-jobs!)
   |> jobs-filter-by-str input
   |> die-if-empty
   |> find-earliest-building-job
   |> map prop \jobName
-  |> cata do
-    Just: async (job-name) ->*
-      output = yield tail-build job-name
-      output.cata do
-        Just: (stream) ->
-          stream
-            .pipe format-tail-output!
-            .pipe process.stdout
-          stream.on \end, retry
-        Nothing: ->
-          die 'Something went wrong'
-    Nothing: wait-and-retry
+  |> (.cata Just: tail-job, Nothing: wait-and-retry)
 
 cli-tail = (argv, second-time) ->
   {__: job-name, build-number, follow, multi} = argv
