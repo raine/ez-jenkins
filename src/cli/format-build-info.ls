@@ -7,7 +7,7 @@ require! 'pretty-ms'
 offset-color = ->
   | it < 0  => \green
   | it is 0 => \dim
-  | it > 0  => \red
+  | it > 0  => \yellow
 
 offset-symbol = ->
   | it < 0    => '-'
