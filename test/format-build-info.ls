@@ -26,6 +26,6 @@ describe 'format-build-info' (,) ->
     finished-str = strftime '%F %T', new Date BUILD_DATA.timestamp
 
     eq "\u001b[1m\u001b[32m[SUCCESS]\u001b[39m\u001b[22m " +
-       "\u001b[1mDuration:\u001b[22m 13.9s \u001b[31m(+2.5s)\u001b[39m " +
+       "\u001b[1mDuration:\u001b[22m 13.9s \u001b[33m(+2.5s)\u001b[39m " +
        "\u001b[1mFinished:\u001b[22m #finished-str (#since-str ago)",
        format-build-info BUILD_DATA
