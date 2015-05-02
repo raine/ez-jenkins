@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> cli for jenkins ci
+CLI for Jenkins CI, written in [LiveScript](livescript.net)
 
 ```sh
 npm install -g ez-jenkins
@@ -18,7 +18,7 @@ jenkins tail <job-name>
 ## features
 
 - **`list`** jobs in a table, usable as [terminal walldisplay](https://github.com/raine/ez-jenkins/tree/master/etc)
-- **`tail`** a job (or jobs matching a pattern) for output indefinitely
+- **`tail`** a job (or jobs matching a pattern) for output and wait for the next build
   - example use case: tail build logs in the same window for multiple jobs where
     one job's completion triggers the next job
 - open job configuration view in browser with **`configure`**
@@ -41,7 +41,7 @@ Commands:
   setup        interactively configure jenkins base url
 ```
 
-## roadmap
+## upcoming features
 
 - [ ] start and stop builds
 - [x] tail multiple builds
