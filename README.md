@@ -46,7 +46,7 @@ Commands:
 - [ ] start and stop builds
 - [x] tail multiple builds
 
-Bug reports and feature requests are welcome.
+General feedback, bug reports and feature requests are welcome via [issues](https://github.com/raine/ez-jenkins/issues) or you can [contact me on Twitter](https://twitter.com/rane).
 
 ## screenshots
 
